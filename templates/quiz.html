@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Quiz: {{ cocktail_name }} - Question {{ question_id }}</title>
+</head>
+<body>
+  <h1>Quiz: {{ cocktail_name }}</h1>
+  <h2>Question {{ question_id }}</h2>
+  <p>{{ question["question"] }}</p>
+
+  <form method="POST">
+    {% if question["type"] == "multiple-choice" or question["type"] == "checkbox" %}
+      {% for option in question["options"] %}
+        <label>
+          <input type="{{ 'checkbox' if question['type'] == 'checkbox' else 'radio' }}"
+                 name="answer" value="{{ option }}">
+          {{ option }}
+        </label><br>
+      {% endfor %}
+
+    {% elif question["type"] == "drag-timer" %}
+      <p> This is a drag-timer question.<br>
+         Target Time: {{ question["target_seconds"] }}s ±{{ question["tolerance"] }}s</p>
+      <label>How many seconds did you hold it for?
+        <input type="number" name="answer">
+      </label>
+
+    {% elif question["type"] == "drag-quantity" %}
+      <p> Drag {{ question["target"] }} items to the correct spot.</p>
+      <label>How many items did you drag?
+        <input type="number" name="answer">
+      </label>
+    {% endif %}
+
+    <br><br>
+    <button type="submit">Next</button>
+  </form>
+</body>
+</html>
+

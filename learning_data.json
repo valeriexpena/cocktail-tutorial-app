@@ -4,9 +4,9 @@
     "steps": {
       "1": {
         "text_left": "",
-        "media_left": ["images/tequila.jpg"],
+        "media_left": ["images/tequila.jpg"], 
         "text_right": "Cut the lemon yourself!",
-        "media_right": ["images/lime.jpg"]
+        "media_right": ["images/lemon.png", "images/knife.png"]
       },
       "2": {
         "text_left": "Using ice scoop, fill highball glass and shaker with cubed ice",
@@ -56,8 +56,34 @@
         "text_right": "Drag the barspoon into the drink, remove it, and place the lemon wedge in the drink",
         "media_right": ["images/cola.jpg"]
       }
+    },
+    "quiz": {
+      "1": {
+        "question": "Select the correct containers to scoop ice into.",
+        "type": "multiple-choice",
+        "options": ["Martini glass", "Shaker", "Highball glass"],
+        "correct": ["Highball glass", "Shaker"]
+      },
+      "2": {
+        "question": "Select the correct liquors to add.",
+        "type": "checkbox",
+        "options": ["Gin", "Vodka", "Tequila", "Triple sec", "Light rum", "Whiskey"],
+        "correct": ["Gin", "Vodka", "Tequila", "Triple sec", "Light rum"]
+      },
+      "3": {
+        "question": "Drag the sugar syrup over the jigger for the correct time.",
+        "type": "drag-timer",
+        "target_seconds": 2,
+        "tolerance": 0.5
+      },
+      "4": {
+        "question": "Drag the correct drink above the glass to pour it in.",
+        "type": "drag-select",
+        "correct": "Coca-Cola"
+      }
     }
   },
+
   "2": {
     "name": "Espresso Martini",
     "steps": {
@@ -109,6 +135,82 @@
         "text_right": "Place three coffee beans on top of the drink for garnish.",
         "media_right": []
       }
+    },
+    "quiz": {
+      "1": {
+        "question": "Select the correct containers to scoop ice into.",
+        "type": "multiple-choice",
+        "options": ["Martini glass", "Shaker", "Highball glass", "Wine glass"],
+        "correct": ["Martini glass", "Shaker"]
+      },
+      "2": {
+        "question": "Select the correct ingredients to add to the espresso martini.",
+        "type": "checkbox",
+        "options": ["Vodka", "Espresso", "Coffee liqueur", "Orange juice", "Tequila"],
+        "correct": ["Vodka", "Espresso", "Coffee liqueur"]
+      },
+      "3": {
+        "question": "How long should you shake the shaker?",
+        "type": "drag-timer",
+        "target_seconds": 9,
+        "tolerance": 1
+      },
+      "4": {
+        "question": "Drag the correct number of coffee beans onto the drink.",
+        "type": "drag-quantity",
+        "target": 3
+      }
+    }
+  },
+
+  "3": {
+    "name": "Aperol Spritz",
+    "steps": {
+      "1": {
+        "text_left": "Cut an orange wedge to use for garnish.",
+        "media_left": ["images/orange.jpg"],
+        "text_right": "Cut the orange yourself!",
+        "media_right": []
+      },
+      "2": {
+        "text_left": "Fill the wine glass with cubed ice.",
+        "media_left": ["images/ice.jpg"],
+        "text_right": "Drag the scoop of ice into the wine glass to place ice in it.",
+        "media_right": []
+      },
+      "3": {
+        "text_left": "Using a jigger, add 60ml Aperitivo Bitters, 30ml soda water, and 90ml prosecco.",
+        "media_left": ["images/aperitivo.jpg", "images/soda_water.jpg", "images/prosecco.jpg"],
+        "text_right": "Drag each ingredient over the jigger to measure and pour.",
+        "media_right": []
+      },
+      "4": {
+        "text_left": "Stir the mixture in the wine glass with a bar spoon.",
+        "media_left": ["images/stir.jpg"],
+        "text_right": "Drag the barspoon over the drink to stir.",
+        "media_right": []
+      },
+      "5": {
+        "text_left": "Garnish with the orange wedge and serve.",
+        "media_left": ["images/orange.jpg"],
+        "text_right": "Drag the orange wedge onto the drink.",
+        "media_right": []
+      }
+    },
+    "quiz": {
+      "1": {
+        "question": "Select the correct containers to scoop ice into.",
+        "type": "multiple-choice",
+        "options": ["Martini glass", "Shaker", "Wine glass", "Highball glass"],
+        "correct": ["Wine glass"]
+      },
+      "2": {
+        "question": "Select the correct ingredients to add to the Aperol Spritz.",
+        "type": "checkbox",
+        "options": ["Aperitivo Bitters", "Soda water", "Prosecco", "Vodka", "Gin"],
+        "correct": ["Aperitivo Bitters", "Soda water", "Prosecco"]
+      }
     }
   }
 }
+
