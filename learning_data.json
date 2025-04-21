@@ -1,0 +1,114 @@
+{
+  "1": {
+    "name": "Long Island Iced Tea",
+    "steps": {
+      "1": {
+        "text_left": "",
+        "media_left": ["images/tequila.jpg"],
+        "text_right": "Cut the lemon yourself!",
+        "media_right": ["images/lime.jpg"]
+      },
+      "2": {
+        "text_left": "Using ice scoop, fill highball glass and shaker with cubed ice",
+        "media_left": ["images/ice.jpg"],
+        "text_right": "Drag the scoop of ice into the highball glass and shaker to place ice in them",
+        "media_right": []
+      },
+      "3": {
+        "text_left": "Measure 10ml (approx. 1 second pour) of gin, vodka, tequila, triple sec, light rum, and add to shaker",
+        "media_left": ["images/vodka.jpg"],
+        "text_right": "Select the correct liquors to add!",
+        "media_right": []
+      },
+      "4": {
+        "text_left": "Measure 20ml of sugar syrup and add to shaker.",
+        "media_left": ["images/tequila.jpg"],
+        "text_right": "Drag the sugar syrup over the jigger for 2 seconds to estimate 20ml",
+        "media_right": []
+      },
+      "5": {
+        "text_left": "Use juicer to squeeze lemon wedge into jigger and pour into shaker",
+        "media_left": ["images/rum.jpg"],
+        "text_right": "Drag the lemon above the jigger, and put the juicer on the lemon to juice it into the jigger",
+        "media_right": []
+      },
+      "6": {
+        "text_left": "Put lid on shaker and shake vigorously for 7 seconds",
+        "media_left": ["images/gin.jpg"],
+        "text_right": "Shake the closed shaker for 7 seconds",
+        "media_right": []
+      },
+      "7": {
+        "text_left": "Remove lid from shaker and pour into chilled glass",
+        "media_left": ["images/triplesec.jpg"],
+        "text_right": "Remove the lid from the shaker, and drag the shaker over the glass to pour",
+        "media_right": []
+      },
+      "8": {
+        "text_left": "Pour Coca-Cola into glass until it’s full",
+        "media_left": ["images/lemonjuice.jpg"],
+        "text_right": "Drag the correct drink above the glass to pour it in",
+        "media_right": []
+      },
+      "9": {
+        "text_left": "Stir the drink with barspoon, add lemon wedge, and serve!",
+        "media_left": ["images/shaker.jpg"],
+        "text_right": "Drag the barspoon into the drink, remove it, and place the lemon wedge in the drink",
+        "media_right": ["images/cola.jpg"]
+      }
+    }
+  },
+  "2": {
+    "name": "Espresso Martini",
+    "steps": {
+      "1": {
+        "text_left": "Prepare a shot of espresso and let it cool.",
+        "media_left": ["images/espresso.jpg"],
+        "text_right": "Brew a fresh shot of espresso and allow it to cool before using.",
+        "media_right": []
+      },
+      "2": {
+        "text_left": "Fill shaker with ice cubes.",
+        "media_left": ["images/ice.jpg"],
+        "text_right": "Drag the ice cubes into the shaker to fill it.",
+        "media_right": []
+      },
+      "3": {
+        "text_left": "Measure 50ml of vodka and pour into shaker.",
+        "media_left": ["images/vodka.jpg"],
+        "text_right": "Select the vodka and pour it into the shaker.",
+        "media_right": []
+      },
+      "4": {
+        "text_left": "Measure 25ml of coffee liqueur and pour into shaker.",
+        "media_left": ["images/coffee_liqueur.jpg"],
+        "text_right": "Drag the coffee liqueur over the jigger to measure and pour it into the shaker.",
+        "media_right": []
+      },
+      "5": {
+        "text_left": "Add the cooled espresso shot to the shaker.",
+        "media_left": ["images/espresso.jpg"],
+        "text_right": "Drag the espresso shot into the shaker.",
+        "media_right": []
+      },
+      "6": {
+        "text_left": "Put lid on shaker and shake vigorously for 10 seconds.",
+        "media_left": ["images/shaker.jpg"],
+        "text_right": "Shake the closed shaker for 10 seconds.",
+        "media_right": []
+      },
+      "7": {
+        "text_left": "Strain the mixture into a chilled martini glass.",
+        "media_left": ["images/martini_glass.jpg"],
+        "text_right": "Drag the shaker over the martini glass to strain the mixture.",
+        "media_right": []
+      },
+      "8": {
+        "text_left": "Garnish with three coffee beans and serve.",
+        "media_left": ["images/coffee_beans.jpg"],
+        "text_right": "Place three coffee beans on top of the drink for garnish.",
+        "media_right": []
+      }
+    }
+  }
+}
