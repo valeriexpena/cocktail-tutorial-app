@@ -21,7 +21,12 @@ def get_cocktail_step(drink_id, step_id):
     if not step:
         return jsonify({"error": "Step not found"}), 404
 
-    return jsonify(step)
+    return render_template("learn.html",
+                           drink_id=drink_id,
+                           step_id=step_id,
+                           step_data=step,
+                           cocktail_name=drink["name"],
+                           next_step_id=str(int(step_id) + 1))
 
 if __name__ == "__main__":
     app.run(debug=True)
