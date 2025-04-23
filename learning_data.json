@@ -4,55 +4,55 @@
     "steps": {
       "1": {
         "text_left": "",
-        "media_left": ["images/tequila.jpg"], 
+        "media_left": ["gifs/long_island_iced_tea/cutlemon.gif"], 
         "text_right": "Cut the lemon yourself!",
         "media_right": ["images/lemon.png", "images/knife.png"]
       },
       "2": {
         "text_left": "Using ice scoop, fill highball glass and shaker with cubed ice",
-        "media_left": ["images/ice.jpg"],
+        "media_left": ["gifs/long_island_iced_tea/prepareice.gif"],
         "text_right": "Drag the scoop of ice into the highball glass and shaker to place ice in them",
         "media_right": []
       },
       "3": {
         "text_left": "Measure 10ml (approx. 1 second pour) of gin, vodka, tequila, triple sec, light rum, and add to shaker",
-        "media_left": ["images/vodka.jpg"],
+        "media_left": ["gifs/long_island_iced_tea/addliquors.gif"],
         "text_right": "Select the correct liquors to add!",
         "media_right": []
       },
       "4": {
         "text_left": "Measure 20ml of sugar syrup and add to shaker.",
-        "media_left": ["images/tequila.jpg"],
+        "media_left": ["gifs/long_island_iced_tea/addsugarsyrup.gif"],
         "text_right": "Drag the sugar syrup over the jigger for 2 seconds to estimate 20ml",
         "media_right": []
       },
       "5": {
         "text_left": "Use juicer to squeeze lemon wedge into jigger and pour into shaker",
-        "media_left": ["images/rum.jpg"],
+        "media_left": ["gifs/long_island_iced_tea/addlemonjuice.gif"],
         "text_right": "Drag the lemon above the jigger, and put the juicer on the lemon to juice it into the jigger",
         "media_right": []
       },
       "6": {
         "text_left": "Put lid on shaker and shake vigorously for 7 seconds",
-        "media_left": ["images/gin.jpg"],
+        "media_left": ["gifs/long_island_iced_tea/shake.gif"],
         "text_right": "Shake the closed shaker for 7 seconds",
         "media_right": []
       },
       "7": {
         "text_left": "Remove lid from shaker and pour into chilled glass",
-        "media_left": ["images/triplesec.jpg"],
+        "media_left": ["gifs/long_island_iced_tea/strain.gif"],
         "text_right": "Remove the lid from the shaker, and drag the shaker over the glass to pour",
         "media_right": []
       },
       "8": {
-        "text_left": "Pour Coca-Cola into glass until it’s full",
-        "media_left": ["images/lemonjuice.jpg"],
+        "text_left": "Pour Coca-Cola into glass until it's full",
+        "media_left": ["gifs/long_island_iced_tea/coke.gif"],
         "text_right": "Drag the correct drink above the glass to pour it in",
         "media_right": []
       },
       "9": {
         "text_left": "Stir the drink with barspoon, add lemon wedge, and serve!",
-        "media_left": ["images/shaker.jpg"],
+        "media_left": ["gifs/long_island_iced_tea/stirgarnishserve.gif"],
         "text_right": "Drag the barspoon into the drink, remove it, and place the lemon wedge in the drink",
         "media_right": ["images/cola.jpg"]
       }
