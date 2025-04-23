@@ -1,8 +1,35 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>Quiz: {{ cocktail_name }} - Question {{ question_id }}</title>
+  <script>
+    function enableShowAnswer() {
+      document.getElementById("show-answer").disabled = false;
+    }
+
+    function showAnswer() {
+      document.getElementById("answer-section").style.display = "block";
+      document.getElementById("next-button").disabled = false;
+    }
+
+    function validateDragTimer(input, target, tolerance) {
+      const value = parseFloat(input.value);
+      if (value >= target - tolerance && value <= target + tolerance) {
+        enableShowAnswer();
+      }
+    }
+
+    function validateDragQuantity(input, target) {
+      const value = parseInt(input.value, 10);
+      if (value === target) {
+        enableShowAnswer();
+      }
+    }
+  </script>
+  <script src="/static/quiz.js"></script>
 </head>
+
 <body>
   <h1>Quiz: {{ cocktail_name }}</h1>
   <h2>Question {{ question_id }}</h2>
@@ -10,31 +37,48 @@
 
   <form method="POST">
     {% if question["type"] == "multiple-choice" or question["type"] == "checkbox" %}
-      {% for option in question["options"] %}
-        <label>
-          <input type="{{ 'checkbox' if question['type'] == 'checkbox' else 'radio' }}"
-                 name="answer" value="{{ option }}">
-          {{ option }}
-        </label><br>
-      {% endfor %}
+    {% for option in question["options"] %}
+    <label>
+      <input type="{{ 'checkbox' if question['type'] == 'checkbox' else 'radio' }}" name="answer" value="{{ option }}"
+        onchange="enableShowAnswer()">
+      {{ option }}
+    </label><br>
+    {% endfor %}
 
     {% elif question["type"] == "drag-timer" %}
-      <p> This is a drag-timer question.<br>
-         Target Time: {{ question["target_seconds"] }}s ±{{ question["tolerance"] }}s</p>
-      <label>How many seconds did you hold it for?
-        <input type="number" name="answer">
-      </label>
+    <p> This is a drag-timer question.<br>
+      Target Time: {{ question["target_seconds"] }}s ±{{ question["tolerance"] }}s</p>
+    <label>How many seconds did you hold it for?
+      <input type="number" name="answer"
+        onchange="validateDragTimer(this, {{ question['target_seconds'] }}, {{ question['tolerance'] }})">
+    </label>
 
     {% elif question["type"] == "drag-quantity" %}
-      <p> Drag {{ question["target"] }} items to the correct spot.</p>
-      <label>How many items did you drag?
-        <input type="number" name="answer">
-      </label>
+    <p> Drag {{ question["target"] }} items to the correct spot.</p>
+    <label>How many items did you drag?
+      <input type="number" name="answer" onchange="validateDragQuantity(this, {{ question['target'] }})">
+    </label>
     {% endif %}
 
     <br><br>
-    <button type="submit">Next</button>
+    <button type="button" id="show-answer" onclick="showAnswer()" disabled>Show Answer</button>
+    <button type="submit" id="next-button" disabled>Next</button>
   </form>
-</body>
-</html>
 
+  <div id="answer-section" style="display: none;">
+    <h3>Correct Answer:</h3>
+    <p>
+      {% if question["type"] == "multiple-choice" or question["type"] == "checkbox" %}
+      {{ question["correct"] | join(", ") }}
+      {% elif question["type"] == "drag-timer" %}
+      {{ question["target_seconds"] }}s ±{{ question["tolerance"] }}s
+      {% elif question["type"] == "drag-quantity" %}
+      {{ question["target"] }} items
+      {% elif question["type"] == "drag-select" %}
+      {{ question["correct"] }}
+      {% endif %}
+    </p>
+  </div>
+</body>
+
+</html>
