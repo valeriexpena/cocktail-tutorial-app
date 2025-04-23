@@ -60,7 +60,7 @@
     "quiz": {
       "1": {
         "question": "Select the correct containers to scoop ice into.",
-        "type": "multiple-choice",
+        "type": "checkbox",
         "options": ["Martini glass", "Shaker", "Highball glass"],
         "correct": ["Highball glass", "Shaker"]
       },
@@ -139,7 +139,7 @@
     "quiz": {
       "1": {
         "question": "Select the correct containers to scoop ice into.",
-        "type": "multiple-choice",
+        "type": "checkbox",
         "options": ["Martini glass", "Shaker", "Highball glass", "Wine glass"],
         "correct": ["Martini glass", "Shaker"]
       },
