@@ -79,6 +79,7 @@
       "4": {
         "question": "Drag the correct drink above the glass to pour it in.",
         "type": "drag-select",
+        "options": ["Coca-Cola", "Fanta", "Sprite", "Pepsi"],
         "correct": "Coca-Cola"
       }
     }
