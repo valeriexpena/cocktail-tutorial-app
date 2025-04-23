@@ -3,30 +3,6 @@
 
 <head>
   <title>Quiz: {{ cocktail_name }} - Question {{ question_id }}</title>
-  <script>
-    function enableShowAnswer() {
-      document.getElementById("show-answer").disabled = false;
-    }
-
-    function showAnswer() {
-      document.getElementById("answer-section").style.display = "block";
-      document.getElementById("next-button").disabled = false;
-    }
-
-    function validateDragTimer(input, target, tolerance) {
-      const value = parseFloat(input.value);
-      if (value >= target - tolerance && value <= target + tolerance) {
-        enableShowAnswer();
-      }
-    }
-
-    function validateDragQuantity(input, target) {
-      const value = parseInt(input.value, 10);
-      if (value === target) {
-        enableShowAnswer();
-      }
-    }
-  </script>
   <script src="/static/quiz.js"></script>
 </head>
 
@@ -35,7 +11,7 @@
   <h2>Question {{ question_id }}</h2>
   <p>{{ question["question"] }}</p>
 
-  <form method="POST">
+  <form method="POST" action="/cocktail/{{ drink_id }}/quiz/{{ question_id }}">
     {% if question["type"] == "multiple-choice" or question["type"] == "checkbox" %}
     {% for option in question["options"] %}
     <label>
@@ -58,11 +34,27 @@
     <label>How many items did you drag?
       <input type="number" name="answer" onchange="validateDragQuantity(this, {{ question['target'] }})">
     </label>
+
+    {% elif question["type"] == "drag-select" %}
+    <p>Drag the correct option into the drop area.</p>
+    <div id="drag-options">
+      {% for option in question["options"] %}
+      <div class="draggable-option" draggable="true"
+        ondragstart="event.dataTransfer.setData('text/plain', '{{ option }}')">
+        {{ option }}
+      </div>
+      {% endfor %}
+    </div>
+    <div id="drop-area" ondragover="event.preventDefault()" ondrop="handleDrop(event)"
+      style="border: 2px dashed #ccc; padding: 20px; margin-top: 10px;">
+      Drop here
+    </div>
+    <input type="hidden" name="answer" id="drag-select-answer">
     {% endif %}
 
     <br><br>
     <button type="button" id="show-answer" onclick="showAnswer()" disabled>Show Answer</button>
-    <button type="submit" id="next-button" disabled>Next</button>
+    <button type="button" id="next-button" onclick="navigateToNextQuestion()" disabled>Next</button>
   </form>
 
   <div id="answer-section" style="display: none;">
