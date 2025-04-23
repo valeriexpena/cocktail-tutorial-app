@@ -79,7 +79,7 @@
       "4": {
         "question": "Drag the correct drink above the glass to pour it in.",
         "type": "drag-select",
-        "options": ["Coca-Cola", "Fanta", "Sprite", "Pepsi"],
+        "options": ["Coca-Cola", "Fanta", "Sprite", "Apple Juice"],
         "correct": "Coca-Cola"
       }
     }
@@ -96,7 +96,7 @@
       },
       "2": {
         "text_left": "Fill shaker with ice cubes.",
-        "media_left": ["images/ice.jpg"],
+        "media_left": ["images/ice_cube.jpg"],
         "text_right": "Drag the ice cubes into the shaker to fill it.",
         "media_right": []
       },
