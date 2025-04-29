@@ -12,6 +12,11 @@ with open("learning_data.json", "r") as file:
 def home():
     return render_template("index.html")
 
+@app.route("/quiz")
+def quiz_home():
+    return render_template("quiz_home.html")
+
+
 @app.route("/tutorials")
 def tutorials():
     return render_template("tutorials.html")  # This should be the page showing cocktail list
