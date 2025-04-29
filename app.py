@@ -1,6 +1,6 @@
 from flask import Flask, render_template, jsonify, request, redirect
 import json
-import logging  # Add this import
+import logging
 
 app = Flask(__name__)
 app.secret_key = "super_secret_key"
@@ -11,6 +11,10 @@ with open("learning_data.json", "r") as file:
 @app.route("/")
 def home():
     return render_template("index.html")
+
+@app.route("/tutorials")
+def tutorials():
+    return render_template("tutorials.html")  # This should be the page showing cocktail list
 
 @app.route("/cocktail/<drink_id>/step/<step_id>", methods=["GET"])
 def get_cocktail_step(drink_id, step_id):
@@ -34,7 +38,7 @@ def quiz_intro(drink_id):
     drink = cocktail_data.get(drink_id)
     if not drink:
         return jsonify({"error": "Drink not found"}), 404
-    drink["responses"] = {}     # Initialize responses for quiz
+    drink["responses"] = {}  # Initialize responses for quiz
     return render_template("quiz_intro.html",
                            drink_id=drink_id,
                            cocktail_name=drink["name"])
@@ -82,6 +86,7 @@ def get_quiz_question(drink_id, question_id):
         drink.setdefault("responses", {})[question_id] = {"user_answer": user_answer, "is_correct": is_correct}
 
         app.logger.info(f"User submitted answer for question {question_id}: {user_answer}, Answer: {question.get('correct')}, Correct: {is_correct}")
+
         next_question_id = str(int(question_id) + 1)
         if next_question_id in quiz:
             return jsonify({"next_question_url": f"/cocktail/{drink_id}/quiz/{next_question_id}"})

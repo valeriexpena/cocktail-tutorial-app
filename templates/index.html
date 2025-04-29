@@ -1,47 +1,52 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>How to Make 3 Popular Cocktails</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CockTail Maker</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet">
 </head>
 <body class="p-5">
+
+  <nav class="navbar navbar-expand-lg navbar-light">
+    <a class="navbar-brand" href="/" style="font-weight: bold;">CockTail Maker</a>
+    <div class="navbar-nav">
+      <a class="nav-link" href="/tutorials">Learn</a>
+      <a class="nav-link" href="/quiz">Quiz</a>
+    </div>
+  </nav>
+
   <div class="container text-center">
-    <h1 class="mb-4">How to Make 3 Popular Cocktails</h1>
-    <p class="mb-5">Select a tutorial below!</p>
+    <h1 class="mb-4">CockTail Maker</h1>
+    <p class="mb-5">Select Tutorial Below or Test Your Knowledge!</p>
 
     <div class="row">
+      <!-- Explore Cocktails Card (now links to tutorials) -->
       <div class="col-md-4">
-        <a href="/cocktail/1/step/1" class="text-decoration-none">
+        <a href="/tutorials" class="text-decoration-none">
           <div class="card shadow-sm">
-            <img src="{{ url_for('static', filename='images/long_island_home.png') }}" class="card-img-top" alt="LIIT">
+            <img src="{{ url_for('static', filename='images/cocktail.jpg') }}" class="card-img-top" alt="Explore Cocktails">
             <div class="card-body">
-              <h5 class="card-title">Long Island Iced Tea</h5>
+              <h5 class="card-title">Explore Cocktails</h5>
             </div>
           </div>
         </a>
       </div>
+
       <div class="col-md-4">
         <a href="/cocktail/2/step/1" class="text-decoration-none">
           <div class="card shadow-sm">
-            <img src="{{ url_for('static', filename='images/espresso_martini_home.png') }}" class="card-img-top" alt="Martini">
+            <img src="{{ url_for('static', filename='images/ts1.jpg') }}" class="card-img-top" alt="Test Yourself">
             <div class="card-body">
-              <h5 class="card-title">Espresso Martini</h5>
+              <h5 class="card-title">Test Yourself</h5>
             </div>
           </div>
         </a>
       </div>
-      <div class="col-md-4">
-        <a href="/cocktail/3/step/1" class="text-decoration-none">
-          <div class="card shadow-sm">
-            <img src="{{ url_for('static', filename='images/aperol_spritz_home.png') }}" class="card-img-top" alt="Spritz">
-            <div class="card-body">
-              <h5 class="card-title">Aperol Spritz</h5>
-            </div>
-          </div>
-        </a>
-      </div>
-    </div>
-  </div>
+    </div> 
+  </div> 
+
 </body>
 </html>
 

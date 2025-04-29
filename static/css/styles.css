@@ -1,0 +1,206 @@
+body {
+    background-color: #333333; /* Charcoal black */
+    color: #212121; /* Dark grey for text */
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar {
+    background-color: lightgrey;
+    padding: 20px 0;
+    border-bottom: 2px solid #ccc;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.navbar a {
+    color: #212121;
+    padding: 15px 20px;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    font-weight: normal;
+}
+
+.navbar a:hover {
+    background-color: #f1f1f1;
+}
+
+.container {
+    text-align: center;
+    padding-top: 120px;
+}
+
+h1 {
+    color: #ffffff;
+    font-size: 48px;
+    margin-bottom: 20px;
+}
+
+p {
+    color: #ffffff;
+    font-size: 24px;
+    margin-bottom: 40px;
+}
+
+.card {
+    background-color: #9E2A2F;
+    color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin: 10px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: background-color 0.3s;
+    max-width: 500px; /* Increased card width */
+    margin: 0 auto;
+}
+
+.card img {
+    width: 100%;
+    height: 350px; /* Slightly increased image height */
+    object-fit: cover;
+    border-radius: 10px 10px 0 0;
+}
+
+.card-body {
+    padding: 10px;
+    text-align: center;
+}
+
+.card:hover {
+    background-color: #B23A48;
+}
+
+.card.second-box {
+    background-color: #E65100;
+}
+
+.card.second-box:hover {
+    background-color: #F57C00;
+}
+
+.row {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+.col-md-4 {
+    flex: 1 1 45%; /* Adjust width of each card */
+    max-width: 500px; /* Ensure cards don’t exceed this width */
+}
+
+.btn-primary {
+    background-color: #1976D2;
+    border-color: #1976D2;
+}
+
+.btn-primary:hover {
+    background-color: #1565C0;
+    border-color: #1565C0;
+}
+
+@media (max-width: 767px) {
+    .col-md-4 {
+        flex: 1 1 100%; /* Full width on small screens */
+    }
+
+    h1 {
+        font-size: 36px; /* Adjust title size for small screens */
+    }
+
+    p {
+        font-size: 20px; /* Adjust description size for small screens */
+    }
+}
+#learn-section {
+    padding-top: 120px;
+    padding-bottom: 50px;
+}
+
+#learn-section h1 {
+    color: #ffffff;
+    font-size: 48px;
+    margin-bottom: 30px;
+}
+
+#learn-section .card {
+    background-color: #9E2A2F;
+    color: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin: 20px;
+    height: auto;
+    transition: transform 0.3s ease-in-out;
+    text-align: center;
+    flex: 1 1 30%;
+    max-width: 450px;
+    min-width: 350px;
+}
+
+#learn-section .card:hover {
+    transform: scale(1.05);
+}
+
+#learn-section .card img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 15px 15px 0 0;
+}
+
+#learn-section .card-body {
+    padding: 20px;
+}
+
+#learn-section .card-title {
+    font-size: 22px;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+#learn-section .card-description {
+    font-size: 18px;
+    color: #ffffff;
+    margin-top: 10px;
+}
+
+#learn-section .row {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+#learn-section .col-md-4 {
+    flex: 1 1 30%;
+    max-width: 450px;
+    min-width: 300px;
+}
+
+#learn-section .btn-primary {
+    background-color: #9E2A2F;
+    color: white;
+    border-radius: 5px;
+    padding: 10px 20px;
+    text-decoration: none;
+    font-size: 16px;
+    display: inline-block;
+}
+
+#learn-section .btn-primary:hover {
+    background-color: #B23A48;
+}
+
