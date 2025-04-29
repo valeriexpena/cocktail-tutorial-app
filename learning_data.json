@@ -96,7 +96,7 @@
       },
       "2": {
         "text_left": "Fill shaker with ice cubes.",
-        "media_left": ["images/ice_cube.jpg"],
+        "media_left": ["images/ice_cube.png"],
         "text_right": "Drag the ice cubes into the shaker to fill it.",
         "media_right": []
       },
