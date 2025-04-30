@@ -227,14 +227,12 @@ body {
     color: white;
     border-radius: 15px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    margin: 20px;
-    height: auto;
+    margin: 20px 0;
     transition: transform 0.3s ease-in-out;
     text-align: center;
-    display: inline-block;
-    width: 30%;
-    margin-right: 20px;
-    min-width: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 #quiz-section .card:hover {
@@ -266,7 +264,8 @@ body {
 
 #quiz-section .row {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly; /* Ensures equal spacing between the cards */
+    gap: 20px;
     flex-wrap: wrap;
 }
 
@@ -274,13 +273,13 @@ body {
     background-color: #1976D2;
     color: white;
     text-align: center;
-    font-size: 14px;
+    font-size: 16px;
     text-decoration: none;
     border-radius: 5px;
-    padding: 8px 16px;
+    padding: 10px 20px;
     display: block;
-    width: 80%;
-    margin: 10px auto;
+    width: 100%;
+    margin-top: 20px;
 }
 
 .start-quiz-button:hover {
@@ -288,10 +287,6 @@ body {
 }
 
 @media (max-width: 767px) {
-    #quiz-section .card {
-        width: 90%;
-    }
-
     .start-quiz-button {
         width: 100%;
     }
