@@ -17,53 +17,51 @@
 
     <div class="learn-flex-child">
       <p>{{ step_data["text_right"] }}</p>
-      {% for img in step_data["media_right"] %}
-        {% if "lemon.png" in img %}
-          <!-- Lemon: Drop target -->
-          <img id="lemon" class="learn-img-small"
-               src="/static/{{ img }}"
-               ondragover="event.preventDefault()"
-               ondrop="handleDrop(event, 'lemon')">
 
-        {% elif "lemon_sliced.png" in img %}
-          <!-- Sliced lemon: Hidden initially -->
-          <img id="lemon-sliced" class="learn-img-small"
-               src="/static/{{ img }}"
-               style="display: none;"
-               alt="Sliced lemon">
+      <!-- Make right-side media a horizontal row -->
+      <div style="display: flex; flex-direction: row; gap: 20px; flex-wrap: wrap; justify-content: center;">
+        {% for img in step_data["media_right"] %}
+          {% if "lemon.png" in img %}
+            <img id="lemon" class="learn-img-small"
+                 src="/static/{{ img }}"
+                 ondragover="event.preventDefault()"
+                 ondrop="handleDrop(event, 'lemon')">
 
-        {% elif "knife" in img %}
-          <!-- Knife: Draggable -->
-          <img id="knife" class="learn-img-small"
-               src="/static/{{ img }}"
-               draggable="true"
-               ondragstart="handleDragStart(event)">
+          {% elif "lemon_sliced.png" in img %}
+            <img id="lemon-sliced" class="learn-img-small"
+                 src="/static/{{ img }}"
+                 style="display: none;"
+                 alt="Sliced lemon">
 
-        {% elif "ice_cube" in img %}
-          <!-- Ice cube: Draggable -->
-          <img id="ice-cube" class="learn-img-small"
-               src="/static/{{ img }}"
-               draggable="true"
-               ondragstart="handleDragStart(event)">
+          {% elif "knife" in img %}
+            <img id="knife" class="learn-img-small"
+                 src="/static/{{ img }}"
+                 draggable="true"
+                 ondragstart="handleDragStart(event)">
 
-        {% elif "shaker" in img %}
-          <!-- Shaker: Drop target -->
-          <img id="shaker" class="learn-img-small"
-               src="/static/{{ img }}"
-               ondragover="event.preventDefault()"
-               ondrop="handleDrop(event, 'shaker')">
+          {% elif "ice_cube" in img %}
+            <img id="ice-cube" class="learn-img-small"
+                 src="/static/{{ img }}"
+                 draggable="true"
+                 ondragstart="handleDragStart(event)">
 
-        {% elif "glass" in img or "highball" in img %}
-          <!-- Glass: Drop target -->
-          <img id="glass" class="learn-img-small"
-               src="/static/{{ img }}"
-               ondragover="event.preventDefault()"
-               ondrop="handleDrop(event, 'glass')">
+          {% elif "shaker" in img %}
+            <img id="shaker" class="learn-img-small"
+                 src="/static/{{ img }}"
+                 ondragover="event.preventDefault()"
+                 ondrop="handleDrop(event, 'shaker')">
 
-        {% else %}
-          <img class="learn-img-small" src="/static/{{ img }}">
-        {% endif %}
-      {% endfor %}
+          {% elif "glass" in img or "highball" in img %}
+            <img id="glass" class="learn-img-small"
+                 src="/static/{{ img }}"
+                 ondragover="event.preventDefault()"
+                 ondrop="handleDrop(event, 'glass')">
+
+          {% else %}
+            <img class="learn-img-small" src="/static/{{ img }}">
+          {% endif %}
+        {% endfor %}
+      </div>
     </div>
   </div>
 
@@ -75,7 +73,6 @@
     {% endif %}
 
     {% if next_step_id is not none %}
-      <!-- Next button starts hidden -->
       <a href="/cocktail/{{ drink_id }}/step/{{ next_step_id }}" id="next-button" style="display: none;">
         <button class="button-next">Next</button>
       </a>
@@ -103,12 +100,26 @@
         revealNext();
       }
     }
- function revealNext() {
+
+    function revealNext() {
       const nextBtn = document.getElementById("next-button");
       if (nextBtn) {
         nextBtn.style.display = "inline-block";
       }
     }
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const shaker = document.getElementById("shaker");
+      if (shaker) {
+        shaker.addEventListener("click", function () {
+          shaker.classList.add("shake");
+          setTimeout(() => {
+            shaker.classList.remove("shake");
+          }, 500);
+        });
+      }
+    });
   </script>
 </body>
 {% endblock %}
+

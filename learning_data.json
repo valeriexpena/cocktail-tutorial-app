@@ -12,8 +12,8 @@
       "2": {
         "text_left": "Using ice scoop, fill highball glass and shaker with cubed ice",
         "media_left": ["gifs/long_island_iced_tea/prepareice.gif"],
-        "text_right": "Drag the scoop of ice into the highball glass and shaker to place ice in them",
-        "media_right": []
+        "text_right": "Drag the ice into both the shaker and the glass to add ice. Then, tap the shaker to shake it!",
+        "media_right": ["images/ice_cube.png", "images/highball_glass.png", "images/shaker.png"]
       },
       "3": {
         "text_left": "Measure 10ml (approx. 1 second pour) of gin, vodka, tequila, triple sec, light rum, and add to shaker",
