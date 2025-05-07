@@ -38,6 +38,7 @@ def get_cocktail_step(drink_id, step_id):
                            step_id=step_id,
                            step_data=step,
                            cocktail_name=drink["name"],
+                           prev_step_id=str(int(step_id) - 1) if int(step_id) > 1 else None,
                            next_step_id=str(int(step_id) + 1))
 
 @app.route("/cocktail/<drink_id>/quiz", methods=["GET"])

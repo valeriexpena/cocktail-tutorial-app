@@ -26,6 +26,11 @@
     </div>
   </div>
 
+  {% if prev_step_id is not none %}
+  <a href="/cocktail/{{ drink_id }}/step/{{ prev_step_id }}">
+    <button style="padding: 10px 20px; font-size: 18px; margin-right: 10px;">Back</button>
+  </a>
+  {% endif %}
   <a href="/cocktail/{{ drink_id }}/step/{{ next_step_id }}">
     <button style="padding: 10px 20px; font-size: 18px;">Next</button>
   </a>
