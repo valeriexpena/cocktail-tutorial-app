@@ -1,12 +1,12 @@
-<html>
+{% extends "base.html" %}
 
-<head>
-    <title>Quiz Result</title>
-</head>
+{% block title %}Quiz Result{% endblock %}
+
+{% block content %}
 
 <body>
     <h2>Quiz Result for {{ cocktail_name }}</h2>
     <p>You scored: {{ score }} out of {{ total }}</p>
 </body>
 
-</html>
+{% endblock %}

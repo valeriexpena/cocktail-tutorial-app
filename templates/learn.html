@@ -1,9 +1,9 @@
-<!DOCTYPE html>
-<html>
+{% extends "base.html" %}
 
-<head>
-  <title>{{ cocktail_name }} - Step {{ step_id }}</title>
-</head>
+{% block title %}{{ cocktail_name }} - Step {{ step_id }}{% endblock %}
+
+{% block content %}
+
 
 <body style="font-family: sans-serif; text-align: center; padding: 20px;">
   <h1 style="background-color: #c97b65; color: white; padding: 10px;">
@@ -15,13 +15,13 @@
     <div style="flex: 1;">
       <p>{{ step_data["text_left"] }}</p>
       {% for img in step_data["media_left"] %}
-        <img src="/static/{{ img }}" width="400" style="margin: 10px;">
+      <img src="/static/{{ img }}" width="400" style="margin: 10px;">
       {% endfor %}
     </div>
     <div style="flex: 1;">
       <p>{{ step_data["text_right"] }}</p>
       {% for img in step_data["media_right"] %}
-        <img src="/static/{{ img }}" width="200" style="margin: 10px;">
+      <img src="/static/{{ img }}" width="200" style="margin: 10px;">
       {% endfor %}
     </div>
   </div>
@@ -30,5 +30,5 @@
     <button style="padding: 10px 20px; font-size: 18px;">Next</button>
   </a>
 </body>
-</html>
 
+{% endblock %}

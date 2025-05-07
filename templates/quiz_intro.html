@@ -1,8 +1,9 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Quiz Intro - {{ cocktail_name }}</title>
-</head>
+{% extends "base.html" %}
+
+{% block title %}Quiz Intro - {{ cocktail_name }}{% endblock %}
+
+{% block content %}
+
 <body style="text-align: center; font-family: sans-serif;">
   <h1 style="background-color: #c97b65; color: white; padding: 10px;">How to Make a {{ cocktail_name }}</h1>
   <h2 style="background-color: #444; color: white; padding: 10px;">Quiz</h2>
@@ -11,5 +12,4 @@
     <img src="/static/question_button.png" alt="Start Quiz" width="200">
   </a>
 </body>
-</html>
-
+{% endblock %}
