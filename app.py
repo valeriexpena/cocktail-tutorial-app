@@ -67,7 +67,7 @@ def get_quiz_question(drink_id, question_id):
         user_answer = request.get_json().get("answer")
         # Determine correctness according to question type
         if question["type"] == "drag-timer":
-            target = question["target_seconds"]
+            target = question["correct"]
             tolerance = question["tolerance"]
             try:
                 answer_val = float(user_answer)
@@ -75,7 +75,7 @@ def get_quiz_question(drink_id, question_id):
             except (TypeError, ValueError):
                 is_correct = False
         elif question["type"] == "drag-quantity":
-            target = question["target"]
+            target = question["correct"]
             try:
                 answer_val = int(user_answer)
                 is_correct = answer_val == target
@@ -96,10 +96,12 @@ def get_quiz_question(drink_id, question_id):
         app.logger.info(f"User submitted answer for question {question_id}: {user_answer}, Answer: {question.get('correct')}, Correct: {is_correct}")
 
         next_question_id = str(int(question_id) + 1)
-        if next_question_id in quiz:
-            return jsonify({"next_question_url": f"/cocktail/{drink_id}/quiz/{next_question_id}"})
-        else:
-            return jsonify({"next_question_url": f"/cocktail/{drink_id}/result"})
+        next_question_url = f"/cocktail/{drink_id}/quiz/{next_question_id}" if next_question_id in quiz else f"/cocktail/{drink_id}/result"
+        return jsonify({
+            "next_question_url": next_question_url,
+            "is_correct": is_correct,
+            "correct_answer": question["correct"]  # Include correct answer
+        })
 
     return render_template("quiz.html",
                            drink_id=drink_id,

@@ -68,13 +68,20 @@
       "2": {
         "question": "Select the correct liquors to add.",
         "type": "checkbox",
-        "options": ["Gin", "Vodka", "Tequila", "Triple sec", "Light rum", "Whiskey"],
+        "options": [
+          "Gin",
+          "Vodka",
+          "Tequila",
+          "Triple sec",
+          "Light rum",
+          "Whiskey"
+        ],
         "correct": ["Gin", "Vodka", "Tequila", "Triple sec", "Light rum"]
       },
       "3": {
         "question": "Drag the sugar syrup over the jigger for the correct time.",
         "type": "drag-timer",
-        "target_seconds": 2,
+        "correct": 2,
         "tolerance": 0.5
       },
       "4": {
@@ -149,19 +156,25 @@
       "2": {
         "question": "Select the correct ingredients to add to the espresso martini.",
         "type": "checkbox",
-        "options": ["Vodka", "Espresso", "Coffee liqueur", "Orange juice", "Tequila"],
+        "options": [
+          "Vodka",
+          "Espresso",
+          "Coffee liqueur",
+          "Orange juice",
+          "Tequila"
+        ],
         "correct": ["Vodka", "Espresso", "Coffee liqueur"]
       },
       "3": {
         "question": "How long should you shake the shaker?",
         "type": "drag-timer",
-        "target_seconds": 9,
+        "correct": 9,
         "tolerance": 1
       },
       "4": {
         "question": "Drag the correct number of coffee beans onto the drink.",
         "type": "drag-quantity",
-        "target": 3
+        "correct": 3
       }
     }
   },
@@ -184,7 +197,11 @@
       },
       "3": {
         "text_left": "Using a jigger, add 60ml Aperitivo Bitters, 30ml soda water, and 90ml prosecco.",
-        "media_left": ["images/aperitivo.jpg", "images/soda_water.jpg", "images/prosecco.jpg"],
+        "media_left": [
+          "images/aperitivo.jpg",
+          "images/soda_water.jpg",
+          "images/prosecco.jpg"
+        ],
         "text_right": "Drag each ingredient over the jigger to measure and pour.",
         "media_right": []
       },
@@ -211,10 +228,15 @@
       "2": {
         "question": "Select the correct ingredients to add to the Aperol Spritz.",
         "type": "checkbox",
-        "options": ["Aperitivo Bitters", "Soda water", "Prosecco", "Vodka", "Gin"],
+        "options": [
+          "Aperitivo Bitters",
+          "Soda water",
+          "Prosecco",
+          "Vodka",
+          "Gin"
+        ],
         "correct": ["Aperitivo Bitters", "Soda water", "Prosecco"]
       }
     }
   }
 }
-

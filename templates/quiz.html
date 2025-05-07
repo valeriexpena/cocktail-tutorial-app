@@ -21,14 +21,14 @@
 
     {% elif question["type"] == "drag-timer" %}
     <p> This is a drag-timer question.<br>
-      Target Time: {{ question["target_seconds"] }}s ±{{ question["tolerance"] }}s</p>
+      Target Time: {{ question["correct"] }}s ±{{ question["tolerance"] }}s</p>
     <label>How many seconds did you hold it for?
       <input type="number" name="answer"
-        onchange="validateDragTimer(this, {{ question['target_seconds'] }}, {{ question['tolerance'] }})">
+        onchange="validateDragTimer(this, {{ question['correct'] }}, {{ question['tolerance'] }})">
     </label>
 
     {% elif question["type"] == "drag-quantity" %}
-    <p> Drag {{ question["target"] }} items to the correct spot.</p>
+    <p> Drag {{ question["correct"] }} items to the correct spot.</p>
     <label>How many items did you drag?
       <input type="number" name="answer" onchange="validateDragQuantity(this, {{ question['target'] }})">
     </label>
@@ -61,9 +61,9 @@
       {% if question["type"] == "multiple-choice" or question["type"] == "checkbox" %}
       {{ question["correct"] | join(", ") }}
       {% elif question["type"] == "drag-timer" %}
-      {{ question["target_seconds"] }}s ±{{ question["tolerance"] }}s
+      {{ question["correct"] }}s ±{{ question["tolerance"] }}s
       {% elif question["type"] == "drag-quantity" %}
-      {{ question["target"] }} items
+      {{ question["correct"] }} items
       {% elif question["type"] == "drag-select" %}
       {{ question["correct"] }}
       {% endif %}

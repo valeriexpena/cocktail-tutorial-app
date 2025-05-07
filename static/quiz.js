@@ -7,9 +7,30 @@ function disableShowAnswer() {
 }
 
 function showAnswer() {
-  document.getElementById("answer-section").style.display = "block";
-  document.getElementById("next-button").disabled = false;
-  sendAnswerData();
+  const answerSection = document.getElementById("answer-section");
+  const nextButton = document.getElementById("next-button");
+  const showAnswerButton = document.getElementById("show-answer");
+
+  answerSection.style.display = "block";
+  answerSection.innerHTML = "<p>Checking answer...</p>"; // Display "Checking answer"
+  nextButton.disabled = true;
+
+  sendAnswerData()
+    .then((data) => {
+      const { is_correct, correct_answer } = data;
+      if (is_correct) {
+        answerSection.innerHTML = `<p>Correct</p>`;
+      } else {
+        answerSection.innerHTML = `<p>Incorrect</p><h3>Correct Answer:</h3><p>${correct_answer}</p>`;
+      }
+      nextButton.disabled = false;
+    })
+    .catch((error) => {
+      console.error("Error submitting answer:", error);
+      answerSection.innerHTML =
+        "<p>Error checking answer. Please try again.</p>";
+    });
+
   disableShowAnswer();
 }
 
@@ -26,7 +47,7 @@ function sendAnswerData() {
     answer = formData.get("answer");
   }
 
-  fetch(form.action, {
+  return fetch(form.action, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -41,12 +62,12 @@ function sendAnswerData() {
     })
     .then((data) => {
       console.log("Answer submitted successfully:", data);
-      // Store the next question URL for later navigation
       document.getElementById("next-button").dataset.nextQuestionUrl =
         data.next_question_url || "";
-    })
-    .catch((error) => {
-      console.error("Error submitting answer:", error);
+      return {
+        is_correct: data.is_correct,
+        correct_answer: data.correct_answer,
+      }; // Return correctness and correct answer
     });
 }
 
