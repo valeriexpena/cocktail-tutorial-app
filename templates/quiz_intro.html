@@ -3,13 +3,39 @@
 {% block title %}Quiz Intro - {{ cocktail_name }}{% endblock %}
 
 {% block content %}
+<div class="container text-center quiz-intro-container">
+  <h1 class="mb-4 quiz-intro-title">You're About to Take the Quiz for {{ cocktail_name }}</h1>
+  <p class="quiz-intro-subtext">Make sure you’ve completed the tutorial before beginning.</p>
+  <h2 id="countdown" class="quiz-intro-timer">Time: 10s</h2>
 
-<body style="text-align: center; font-family: sans-serif;">
-  <h1 style="background-color: #c97b65; color: white; padding: 10px;">How to Make a {{ cocktail_name }}</h1>
-  <h2 style="background-color: #444; color: white; padding: 10px;">Quiz</h2>
+  <div class="d-flex justify-content-center gap-4">
+    <button class="btn btn-outline-light" onclick="goHome()">Back to Home</button>
+    <button class="btn btn-primary" onclick="startQuizNow()">Continue</button>
+  </div>
+</div>
 
-  <a href="/cocktail/{{ drink_id }}/quiz/1">
-    <img src="/static/question_button.png" alt="Start Quiz" width="200">
-  </a>
-</body>
+<script>
+  let countdown = 10;
+  const countdownInterval = setInterval(() => {
+    const display = document.getElementById("countdown");
+    if (countdown > 0) {
+      display.innerText = `Time: ${countdown}s`;
+      countdown--;
+    } else {
+      clearInterval(countdownInterval);
+      window.location.href = "/cocktail/{{ drink_id }}/quiz/1";
+    }
+  }, 1000);
+
+  function startQuizNow() {
+    clearInterval(countdownInterval);
+    window.location.href = "/cocktail/{{ drink_id }}/quiz/1";
+  }
+
+  function goHome() {
+    clearInterval(countdownInterval);
+    window.location.href = "/";
+  }
+</script>
 {% endblock %}
+

@@ -7,7 +7,7 @@
         "text_left": "",
         "media_left": ["gifs/long_island_iced_tea/cutlemon.gif"],
         "text_right": "Cut the lemon yourself!",
-        "media_right": ["images/lemon.png", "images/knife.png"]
+        "media_right": ["images/lemon.png", "images/knife.png","images/lemon_sliced.png"]
       },
       "2": {
         "text_left": "Using ice scoop, fill highball glass and shaker with cubed ice",

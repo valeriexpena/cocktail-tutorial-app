@@ -203,7 +203,6 @@ p {
 #learn-section .btn-primary:hover {
     background-color: #B23A48;
 }
-/* General Styles for the page */
 body {
     background-color: #333333;
     color: #ffffff;
@@ -290,5 +289,100 @@ body {
     .start-quiz-button {
         width: 100%;
     }
+}
+.quiz-intro-subtext {
+    color: white;
+    font-size: 24px;
+    margin-bottom: 30px;
+}
+
+.quiz-intro-timer {
+    color: #FFD700;
+    font-size: 32px;
+    margin-bottom: 30px;
+}
+
+.navbar-brand-bold {
+  font-weight: bold;
+}
+
+.learn-body {
+  font-family: sans-serif;
+  text-align: center;
+  padding: 20px;
+}
+
+.learn-title {
+  background-color: #c97b65;
+  color: white;
+  padding: 10px;
+}
+
+.learn-flex-container {
+  display: flex;
+  justif-content: center;
+  align-items: center;
+  margin: 20px;
+}
+
+.learn-flex-child {
+  flex: 1;
+}
+
+.learn-img-large {
+  margin: 10px;
+  width: 400px;
+}
+
+.learn-img-small {
+  margin: 10px;
+  width: 200px;
+}
+
+.button-back {
+  padding: 10px 20px;
+  font-size: 18px;
+  margin-right: 10px;
+}
+
+.button-next {
+  padding: 10px 20px;
+  font-size: 18px;
+}
+
+.quiz-drop-area {
+  border: 2px dashed #ccc;
+  padding: 20px;
+  margin-top: 10px;
+}
+
+.quiz-answer-section {
+  display: none;
+}
+
+.quiz-intro-container {
+  padding-top: 100px;
+}
+.learn-flex-child {
+  flex: 1;
+}
+.navbar-brand-bold {
+    font-weight: bold;
+}
+
+.button-next,
+.button-back {
+  padding: 10px 20px;
+  font-size: 18px;
+  color: white;
+  background-color: #1976D2;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.button-next:hover,
+.button-back:hover {
+  background-color: #1565C0;
 }
 

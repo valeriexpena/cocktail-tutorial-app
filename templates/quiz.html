@@ -43,9 +43,8 @@
       </div>
       {% endfor %}
     </div>
-    <div id="drop-area" ondragover="event.preventDefault()" ondrop="handleDrop(event)"
-      style="border: 2px dashed #ccc; padding: 20px; margin-top: 10px;">
-      Drop here
+     <div id="drop-area" class="quiz-drop-area" ondragover="event.preventDefault()" ondrop="handleDrop(event)"> 
+     Drop here
     </div>
     <input type="hidden" name="answer" id="drag-select-answer">
     {% endif %}
@@ -55,8 +54,8 @@
     <button type="button" id="next-button" onclick="navigateToNextQuestion()" disabled>Next</button>
   </form>
 
-  <div id="answer-section" style="display: none;"></div>
-  <script src="{{ url_for('static', filename='quiz.js') }}"></script>
+<div id="answer-section" class="quiz-answer-section"></div>  
+<script src="{{ url_for('static', filename='quiz.js') }}"></script>
 </body>
 
 {% endblock %}

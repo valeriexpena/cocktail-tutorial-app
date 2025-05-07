@@ -3,37 +3,90 @@
 {% block title %}{{ cocktail_name }} - Step {{ step_id }}{% endblock %}
 
 {% block content %}
-
-
-<body style="font-family: sans-serif; text-align: center; padding: 20px;">
-  <h1 style="background-color: #c97b65; color: white; padding: 10px;">
-    How to Make {{ cocktail_name }}
-  </h1>
+<body class="learn-body">
+  <h1 class="learn-title">How to Make {{ cocktail_name }}</h1>
   <h2>Step {{ step_id }}</h2>
 
-  <div style="display: flex; justify-content: center; align-items: center; margin: 20px;">
-    <div style="flex: 1;">
+  <div class="learn-flex-container">
+    <div class="learn-flex-child">
       <p>{{ step_data["text_left"] }}</p>
       {% for img in step_data["media_left"] %}
-      <img src="/static/{{ img }}" width="400" style="margin: 10px;">
+        <img class="learn-img-large" src="/static/{{ img }}">
       {% endfor %}
     </div>
-    <div style="flex: 1;">
+
+    <div class="learn-flex-child">
       <p>{{ step_data["text_right"] }}</p>
       {% for img in step_data["media_right"] %}
-      <img src="/static/{{ img }}" width="200" style="margin: 10px;">
+        {% if "lemon.png" in img %}
+          <!-- Lemon: Drop target -->
+          <img id="lemon" class="learn-img-small"
+               src="/static/{{ img }}"
+               ondragover="event.preventDefault()"
+               ondrop="handleDrop(event)">
+               
+        {% elif "knife" in img %}
+          <!-- Knife: Draggable -->
+          <img id="knife" class="learn-img-small"
+               src="/static/{{ img }}"
+               draggable="true"
+               ondragstart="handleDragStart(event)">
+
+        {% elif "lemon_sliced.png" in img %}
+          <!-- Sliced lemon: Hidden initially -->
+          <img id="lemon-sliced" class="learn-img-small"
+               src="/static/{{ img }}"
+               style="display: none;"
+               alt="Sliced lemon">
+
+        {% else %}
+          <img class="learn-img-small" src="/static/{{ img }}">
+        {% endif %}
       {% endfor %}
     </div>
   </div>
 
-  {% if prev_step_id is not none %}
-  <a href="/cocktail/{{ drink_id }}/step/{{ prev_step_id }}">
-    <button style="padding: 10px 20px; font-size: 18px; margin-right: 10px;">Back</button>
-  </a>
-  {% endif %}
-  <a href="/cocktail/{{ drink_id }}/step/{{ next_step_id }}">
-    <button style="padding: 10px 20px; font-size: 18px;">Next</button>
-  </a>
-</body>
+  <div style="margin-top: 40px;">
+    {% if prev_step_id is not none %}
+      <a href="/cocktail/{{ drink_id }}/step/{{ prev_step_id }}">
+        <button class="button-back">Back</button>
+      </a>
+    {% endif %}
 
+    {% if next_step_id is not none %}
+      <a href="/cocktail/{{ drink_id }}/step/{{ next_step_id }}" id="next-button" style="display: none;">
+        <button class="button-next">Next</button>
+      </a>
+    {% endif %}
+  </div>
+
+  <script>
+    function handleDragStart(event) {
+      event.dataTransfer.setData("text/plain", event.target.id);
+    }
+
+    function handleDrop(event) {
+      event.preventDefault();
+      const draggedId = event.dataTransfer.getData("text/plain");
+
+      if (draggedId === "knife") {
+        const wholeLemon = document.getElementById("lemon");
+        const slicedLemon = document.getElementById("lemon-sliced");
+
+        // Hide whole lemon
+        if (wholeLemon) wholeLemon.style.display = "none";
+
+        // Show sliced lemon
+        if (slicedLemon) slicedLemon.style.display = "inline";
+
+        // Reveal the Next button
+        const nextBtn = document.getElementById("next-button");
+        if (nextBtn) nextBtn.style.display = "inline-block";
+
+        alert("Nice cut!");
+      }
+    }
+  </script>
+</body>
 {% endblock %}
+
