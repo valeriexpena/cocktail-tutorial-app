@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Tutorials - CockTail Maker{% endblock %}
+{% block title %}Cocktail Tutorials{% endblock %}
 
 {% block content %}
 <div id="learn-section" class="container text-center">
@@ -8,42 +8,18 @@
   <p class="mb-5">Select Tutorial Below!</p>
 
   <div class="row">
+    {% for cocktail in cocktails %}
     <div class="col-md-4">
-      <a href="/cocktail/1/step/1" class="text-decoration-none">
+      <a href="/cocktail/{{ cocktail.id }}/step/1" class="text-decoration-none">
         <div class="card shadow-sm">
-          <img src="{{ url_for('static', filename='images/long_island_home.png') }}" class="card-img-top"
-            alt="Long Island Iced Tea">
+          <img src="{{ url_for('static', filename=cocktail.image) }}" class="card-img-top" alt="{{ cocktail.name }}">
           <div class="card-body">
-            <h5 class="card-title">Long Island Iced Tea</h5>
+            <h5 class="card-title">{{ cocktail.name }}</h5>
           </div>
         </div>
       </a>
     </div>
-
-    <div class="col-md-4">
-      <a href="/cocktail/2/step/1" class="text-decoration-none">
-        <div class="card shadow-sm">
-          <img src="{{ url_for('static', filename='images/espresso_martini_home.png') }}" class="card-img-top"
-            alt="Espresso Martini">
-          <div class="card-body">
-            <h5 class="card-title">Espresso Martini</h5>
-          </div>
-        </div>
-      </a>
-    </div>
-
-    <div class="col-md-4">
-      <a href="/cocktail/3/step/1" class="text-decoration-none">
-        <div class="card shadow-sm">
-          <img src="{{ url_for('static', filename='images/aperol_spritz_home.png') }}" class="card-img-top"
-            alt="Aperol Spritz">
-          <div class="card-body">
-            <h5 class="card-title">Aperol Spritz</h5>
-          </div>
-        </div>
-      </a>
-    </div>
+    {% endfor %}
   </div>
-
 </div>
 {% endblock %}

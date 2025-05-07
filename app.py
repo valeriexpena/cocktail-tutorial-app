@@ -14,12 +14,14 @@ def home():
 
 @app.route("/quiz")
 def quiz_home():
-    return render_template("quiz_home.html")
+    cocktails = [{"id": drink_id, "name": drink["name"], "image": drink["image"]} for drink_id, drink in cocktail_data.items()]
+    return render_template("quiz_home.html", cocktails=cocktails)
 
 
 @app.route("/tutorials")
 def tutorials():
-    return render_template("tutorials.html")  # This should be the page showing cocktail list
+    cocktails = [{"id": drink_id, "name": drink["name"], "image": drink["image"]} for drink_id, drink in cocktail_data.items()]
+    return render_template("tutorials.html", cocktails=cocktails)
 
 @app.route("/cocktail/<drink_id>/step/<step_id>", methods=["GET"])
 def get_cocktail_step(drink_id, step_id):
