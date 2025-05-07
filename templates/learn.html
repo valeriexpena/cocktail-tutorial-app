@@ -23,14 +23,7 @@
           <img id="lemon" class="learn-img-small"
                src="/static/{{ img }}"
                ondragover="event.preventDefault()"
-               ondrop="handleDrop(event)">
-               
-        {% elif "knife" in img %}
-          <!-- Knife: Draggable -->
-          <img id="knife" class="learn-img-small"
-               src="/static/{{ img }}"
-               draggable="true"
-               ondragstart="handleDragStart(event)">
+               ondrop="handleDrop(event, 'lemon')">
 
         {% elif "lemon_sliced.png" in img %}
           <!-- Sliced lemon: Hidden initially -->
@@ -38,6 +31,34 @@
                src="/static/{{ img }}"
                style="display: none;"
                alt="Sliced lemon">
+
+        {% elif "knife" in img %}
+          <!-- Knife: Draggable -->
+          <img id="knife" class="learn-img-small"
+               src="/static/{{ img }}"
+               draggable="true"
+               ondragstart="handleDragStart(event)">
+
+        {% elif "ice_cube" in img %}
+          <!-- Ice cube: Draggable -->
+          <img id="ice-cube" class="learn-img-small"
+               src="/static/{{ img }}"
+               draggable="true"
+               ondragstart="handleDragStart(event)">
+
+        {% elif "shaker" in img %}
+          <!-- Shaker: Drop target -->
+          <img id="shaker" class="learn-img-small"
+               src="/static/{{ img }}"
+               ondragover="event.preventDefault()"
+               ondrop="handleDrop(event, 'shaker')">
+
+        {% elif "glass" in img or "highball" in img %}
+          <!-- Glass: Drop target -->
+          <img id="glass" class="learn-img-small"
+               src="/static/{{ img }}"
+               ondragover="event.preventDefault()"
+               ondrop="handleDrop(event, 'glass')">
 
         {% else %}
           <img class="learn-img-small" src="/static/{{ img }}">
@@ -54,6 +75,7 @@
     {% endif %}
 
     {% if next_step_id is not none %}
+      <!-- Next button starts hidden -->
       <a href="/cocktail/{{ drink_id }}/step/{{ next_step_id }}" id="next-button" style="display: none;">
         <button class="button-next">Next</button>
       </a>
@@ -65,28 +87,28 @@
       event.dataTransfer.setData("text/plain", event.target.id);
     }
 
-    function handleDrop(event) {
+    function handleDrop(event, target) {
       event.preventDefault();
       const draggedId = event.dataTransfer.getData("text/plain");
 
-      if (draggedId === "knife") {
-        const wholeLemon = document.getElementById("lemon");
-        const slicedLemon = document.getElementById("lemon-sliced");
-
-        // Hide whole lemon
-        if (wholeLemon) wholeLemon.style.display = "none";
-
-        // Show sliced lemon
-        if (slicedLemon) slicedLemon.style.display = "inline";
-
-        // Reveal the Next button
-        const nextBtn = document.getElementById("next-button");
-        if (nextBtn) nextBtn.style.display = "inline-block";
-
+      if (draggedId === "knife" && target === "lemon") {
+        document.getElementById("lemon").style.display = "none";
+        document.getElementById("lemon-sliced").style.display = "inline";
         alert("Nice cut!");
+        revealNext();
+      }
+
+      if (draggedId === "ice-cube" && (target === "shaker" || target === "glass")) {
+        alert(`Great! Ice added to the ${target}.`);
+        revealNext();
+      }
+    }
+ function revealNext() {
+      const nextBtn = document.getElementById("next-button");
+      if (nextBtn) {
+        nextBtn.style.display = "inline-block";
       }
     }
   </script>
 </body>
 {% endblock %}
-
