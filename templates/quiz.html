@@ -55,20 +55,7 @@
     <button type="button" id="next-button" onclick="navigateToNextQuestion()" disabled>Next</button>
   </form>
 
-  <div id="answer-section" style="display: none;">
-    <h3>Correct Answer:</h3>
-    <p>
-      {% if question["type"] == "multiple-choice" or question["type"] == "checkbox" %}
-      {{ question["correct"] | join(", ") }}
-      {% elif question["type"] == "drag-timer" %}
-      {{ question["correct"] }}s ±{{ question["tolerance"] }}s
-      {% elif question["type"] == "drag-quantity" %}
-      {{ question["correct"] }} items
-      {% elif question["type"] == "drag-select" %}
-      {{ question["correct"] }}
-      {% endif %}
-    </p>
-  </div>
+  <div id="answer-section" style="display: none;"></div>
   <script src="{{ url_for('static', filename='quiz.js') }}"></script>
 </body>
 
