@@ -1,10 +1,11 @@
 {
   "1": {
     "name": "Long Island Iced Tea",
+    "image": "images/long_island_home.png",
     "steps": {
       "1": {
         "text_left": "",
-        "media_left": ["gifs/long_island_iced_tea/cutlemon.gif"], 
+        "media_left": ["gifs/long_island_iced_tea/cutlemon.gif"],
         "text_right": "Cut the lemon yourself!",
         "media_right": ["images/lemon.png", "images/knife.png"]
       },
@@ -87,6 +88,7 @@
 
   "2": {
     "name": "Espresso Martini",
+    "image": "images/espresso_martini_home.png",
     "steps": {
       "1": {
         "text_left": "Prepare a shot of espresso and let it cool.",
@@ -166,6 +168,7 @@
 
   "3": {
     "name": "Aperol Spritz",
+    "image": "images/aperol_spritz_home.png",
     "steps": {
       "1": {
         "text_left": "Cut an orange wedge to use for garnish.",
