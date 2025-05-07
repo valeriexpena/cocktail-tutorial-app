@@ -18,44 +18,57 @@
     <div class="learn-flex-child">
       <p>{{ step_data["text_right"] }}</p>
 
-      <!-- Make right-side media a horizontal row -->
-      <div style="display: flex; flex-direction: row; gap: 20px; flex-wrap: wrap; justify-content: center;">
+      <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
         {% for img in step_data["media_right"] %}
-          {% if "lemon.png" in img %}
+          {% set img_name = img.split('/')[-1] %}
+
+          {% if "lemon_sliced" in img_name %}
+            <img id="lemon-sliced" class="learn-img-small"
+                 src="/static/{{ img }}" style="display: none;">
+
+          {% elif "lemon" in img_name %}
             <img id="lemon" class="learn-img-small"
-                 src="/static/{{ img }}"
-                 ondragover="event.preventDefault()"
+                 src="/static/{{ img }}" ondragover="event.preventDefault()"
                  ondrop="handleDrop(event, 'lemon')">
 
-          {% elif "lemon_sliced.png" in img %}
-            <img id="lemon-sliced" class="learn-img-small"
-                 src="/static/{{ img }}"
-                 style="display: none;"
-                 alt="Sliced lemon">
-
-          {% elif "knife" in img %}
+          {% elif "knife" in img_name %}
             <img id="knife" class="learn-img-small"
-                 src="/static/{{ img }}"
-                 draggable="true"
+                 src="/static/{{ img }}" draggable="true"
                  ondragstart="handleDragStart(event)">
 
-          {% elif "ice_cube" in img %}
+          {% elif "ice_cube" in img_name %}
             <img id="ice-cube" class="learn-img-small"
-                 src="/static/{{ img }}"
-                 draggable="true"
+                 src="/static/{{ img }}" draggable="true"
                  ondragstart="handleDragStart(event)">
 
-          {% elif "shaker" in img %}
+          {% elif "shaker" in img_name %}
             <img id="shaker" class="learn-img-small"
-                 src="/static/{{ img }}"
-                 ondragover="event.preventDefault()"
+                 src="/static/{{ img }}" ondragover="event.preventDefault()"
                  ondrop="handleDrop(event, 'shaker')">
 
-          {% elif "glass" in img or "highball" in img %}
+          {% elif "glass" in img_name or "highball" in img_name %}
             <img id="glass" class="learn-img-small"
-                 src="/static/{{ img }}"
-                 ondragover="event.preventDefault()"
+                 src="/static/{{ img }}" ondragover="event.preventDefault()"
                  ondrop="handleDrop(event, 'glass')">
+
+          {% elif "vodka" in img_name or "tequila" in img_name or "triple_sec" in img_name or "whiskey" in img_name %}
+            <img class="learn-img-small liquor-option"
+                 src="/static/{{ img }}" onclick="handleLiquorClick(this)">
+
+          {% elif "simple" in img_name %}
+            <img id="simple" class="learn-img-small"
+                 src="/static/{{ img }}" draggable="true"
+                 ondragstart="handleDragStart(event)">
+
+          {% elif "jigger" in img_name %}
+            <img id="jigger" class="learn-img-small"
+                 src="/static/{{ img }}" ondragover="event.preventDefault()"
+                 ondrop="handleDrop(event, 'jigger')">
+
+          {% elif "squeeze" in img_name %}
+            <img id="squeeze" class="learn-img-small"
+                 src="/static/{{ img }}" draggable="true"
+                 ondragstart="handleDragStart(event)">
 
           {% else %}
             <img class="learn-img-small" src="/static/{{ img }}">
@@ -88,6 +101,7 @@
       event.preventDefault();
       const draggedId = event.dataTransfer.getData("text/plain");
 
+      // Lemon cutting
       if (draggedId === "knife" && target === "lemon") {
         document.getElementById("lemon").style.display = "none";
         document.getElementById("lemon-sliced").style.display = "inline";
@@ -95,12 +109,28 @@
         revealNext();
       }
 
+      // Ice into shaker or glass
       if (draggedId === "ice-cube" && (target === "shaker" || target === "glass")) {
         alert(`Great! Ice added to the ${target}.`);
         revealNext();
       }
+
+      // Step 4: Syrup to jigger for 2 seconds
+      if (draggedId === "simple" && target === "jigger") {
+        setTimeout(() => {
+          alert("Syrup poured! Estimated 20ml.");
+          revealNext();
+        }, 2000);
+      }
+
+      // Step 5: Squeeze lemon (squeezer onto jigger)
+      if (draggedId === "squeeze" && target === "jigger") {
+        alert("Juiced into jigger!");
+        revealNext();
+      }
     }
 
+    // Show next button
     function revealNext() {
       const nextBtn = document.getElementById("next-button");
       if (nextBtn) {
@@ -108,17 +138,37 @@
       }
     }
 
+    // Shaker click
     document.addEventListener("DOMContentLoaded", function () {
       const shaker = document.getElementById("shaker");
       if (shaker) {
         shaker.addEventListener("click", function () {
           shaker.classList.add("shake");
-          setTimeout(() => {
-            shaker.classList.remove("shake");
-          }, 500);
+          setTimeout(() => shaker.classList.remove("shake"), 500);
         });
       }
     });
+
+    // Step 3 liquor selection
+    const correctLiquors = ["vodka", "tequila", "triple_sec"];
+    let selectedLiquors = [];
+
+    function handleLiquorClick(img) {
+      const name = img.src.split('/').pop().split('.')[0];
+      if (correctLiquors.includes(name)) {
+        if (!selectedLiquors.includes(name)) {
+          selectedLiquors.push(name);
+          img.style.border = "3px solid green";
+        }
+      } else {
+        img.style.border = "3px solid red";
+      }
+
+      if (selectedLiquors.length === correctLiquors.length) {
+        alert("Nice job! You added all the correct liquors.");
+        revealNext();
+      }
+    }
   </script>
 </body>
 {% endblock %}

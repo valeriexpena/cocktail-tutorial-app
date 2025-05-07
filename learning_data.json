@@ -19,19 +19,19 @@
         "text_left": "Measure 10ml (approx. 1 second pour) of gin, vodka, tequila, triple sec, light rum, and add to shaker",
         "media_left": ["gifs/long_island_iced_tea/addliquors.gif"],
         "text_right": "Select the correct liquors to add!",
-        "media_right": []
+        "media_right": ["images/vodka.png", "images/whiskey.png", "images/tequila.png", "images/triple_sec.png"]
       },
       "4": {
         "text_left": "Measure 20ml of sugar syrup and add to shaker.",
         "media_left": ["gifs/long_island_iced_tea/addsugarsyrup.gif"],
         "text_right": "Drag the sugar syrup over the jigger for 2 seconds to estimate 20ml",
-        "media_right": []
+        "media_right": ["images/simple.png", "images/jigger.png"]
       },
       "5": {
         "text_left": "Use juicer to squeeze lemon wedge into jigger and pour into shaker",
         "media_left": ["gifs/long_island_iced_tea/addlemonjuice.gif"],
         "text_right": "Drag the lemon above the jigger, and put the juicer on the lemon to juice it into the jigger",
-        "media_right": []
+        "media_right": ["images/jigger.png", "images/squeeze.png"]
       },
       "6": {
         "text_left": "Put lid on shaker and shake vigorously for 7 seconds",
