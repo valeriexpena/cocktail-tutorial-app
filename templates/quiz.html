@@ -20,8 +20,8 @@
     {% endfor %}
 
     {% elif question["type"] == "drag-timer" %}
-    <p> This is a drag-timer question.<br>
-      Target Time: {{ question["correct"] }}s ±{{ question["tolerance"] }}s</p>
+    <p> This is a drag-timer question.<br></p>
+    <!-- Target Time: {{ question["correct"] }}s ±{{ question["tolerance"] }}s</p> -->
     <label>How many seconds did you hold it for?
       <input type="number" name="answer"
         onchange="validateDragTimer(this, {{ question['correct'] }}, {{ question['tolerance'] }})">
@@ -43,8 +43,8 @@
       </div>
       {% endfor %}
     </div>
-     <div id="drop-area" class="quiz-drop-area" ondragover="event.preventDefault()" ondrop="handleDrop(event)"> 
-     Drop here
+    <div id="drop-area" class="quiz-drop-area" ondragover="event.preventDefault()" ondrop="handleDrop(event)">
+      Drop here
     </div>
     <input type="hidden" name="answer" id="drag-select-answer">
     {% endif %}
@@ -54,8 +54,8 @@
     <button type="button" id="next-button" onclick="navigateToNextQuestion()" disabled>Next</button>
   </form>
 
-<div id="answer-section" class="quiz-answer-section"></div>  
-<script src="{{ url_for('static', filename='quiz.js') }}"></script>
+  <div id="answer-section" class="quiz-answer-section"></div>
+  <script src="{{ url_for('static', filename='quiz.js') }}"></script>
 </body>
 
 {% endblock %}
