@@ -7,55 +7,205 @@
         "text_left": "",
         "media_left": ["gifs/long_island_iced_tea/cutlemon.gif"],
         "text_right": "Cut the lemon yourself!",
-        "media_right": ["images/lemon.png", "images/knife.png","images/lemon_sliced.png"]
+        "media_right": [
+          {
+            "src": "images/lemon.png",
+            "id": "lemon",
+            "ondragover": "event.preventDefault()",
+            "ondrop": "handleDrop(event, 'lemon')"
+          },
+          {
+            "src": "images/knife.png",
+            "id": "knife",
+            "draggable": "true",
+            "ondragstart": "handleDragStart(event)"
+          },
+          {
+            "src": "images/lemon_sliced.png",
+            "id": "lemon-sliced",
+            "style": "display: none;"
+          }
+        ]
       },
       "2": {
         "text_left": "Using ice scoop, fill highball glass and shaker with cubed ice",
         "media_left": ["gifs/long_island_iced_tea/prepareice.gif"],
         "text_right": "Drag the ice into both the shaker and the glass to add ice. Then, tap the shaker to shake it!",
-        "media_right": ["images/ice_cube.png", "images/highball_glass.png", "images/shaker.png"]
+        "media_right": [
+          {
+            "src": "images/ice_cube.png",
+            "id": "ice-cube",
+            "draggable": "true",
+            "ondragstart": "handleDragStart(event)"
+          },
+          {
+            "src": "images/highball_glass.png",
+            "id": "highball-glass",
+            "ondragover": "event.preventDefault()",
+            "ondrop": "handleDrop(event, 'highball-glass')"
+          },
+          {
+            "src": "images/shaker.png",
+            "id": "shaker",
+            "ondragover": "event.preventDefault()",
+            "ondrop": "handleDrop(event, 'shaker')"
+          }
+        ]
       },
       "3": {
         "text_left": "Measure 10ml (approx. 1 second pour) of gin, vodka, tequila, triple sec, light rum, and add to shaker",
         "media_left": ["gifs/long_island_iced_tea/addliquors.gif"],
         "text_right": "Select the correct liquors to add!",
-        "media_right": ["images/vodka.png", "images/whiskey.png", "images/tequila.png", "images/triple_sec.png"]
+        "media_right": [
+          {
+            "src": "images/vodka.png",
+            "id": "vodka",
+            "onclick": "handleLiquorClick(this)"
+          },
+          {
+            "src": "images/whiskey.png",
+            "id": "whiskey",
+            "onclick": "handleLiquorClick(this)"
+          },
+          {
+            "src": "images/tequila.png",
+            "id": "tequila",
+            "onclick": "handleLiquorClick(this)"
+          },
+          {
+            "src": "images/triple_sec.png",
+            "id": "triple-sec",
+            "onclick": "handleLiquorClick(this)"
+          }
+        ]
       },
       "4": {
         "text_left": "Measure 20ml of sugar syrup and add to shaker.",
         "media_left": ["gifs/long_island_iced_tea/addsugarsyrup.gif"],
         "text_right": "Drag the sugar syrup over the jigger for 2 seconds to estimate 20ml",
-        "media_right": ["images/simple.png", "images/jigger.png"]
+        "media_right": [
+          {
+            "src": "images/simple.png",
+            "id": "simple-syrup",
+            "draggable": "true",
+            "ondragstart": "handleDragStart(event)"
+          },
+          {
+            "src": "images/jigger.png",
+            "id": "jigger",
+            "ondragover": "event.preventDefault()",
+            "ondrop": "handleDrop(event, 'jigger')"
+          }
+        ]
       },
       "5": {
         "text_left": "Use juicer to squeeze lemon wedge into jigger and pour into shaker",
         "media_left": ["gifs/long_island_iced_tea/addlemonjuice.gif"],
         "text_right": "Drag the lemon and juicer above the jigger to juice the lemon into the jigger",
-        "media_right": ["images/jigger.png", "images/squeeze.png"]
+        "media_right": [
+          {
+            "src": "images/jigger.png",
+            "id": "jigger",
+            "ondragover": "event.preventDefault()",
+            "ondrop": "handleDrop(event, 'jigger')"
+          },
+          {
+            "src": "images/squeeze.png",
+            "id": "squeeze",
+            "draggable": "true",
+            "ondragstart": "handleDragStart(event)"
+          }
+        ]
       },
       "6": {
         "text_left": "Put lid on shaker and shake shaker vigorously for 7 seconds",
         "media_left": ["gifs/long_island_iced_tea/shake.gif"],
         "text_right": "Shake the closed shaker for 7 seconds",
-        "media_right": ["images/shaker.png"]
+        "media_right": [
+          {
+            "src": "images/shaker.png",
+            "id": "shaker",
+            "ondragover": "event.preventDefault()",
+            "ondrop": "handleDrop(event, 'shaker')"
+          }
+        ],
+        "event_config": {
+          "shake": true
+        }
       },
       "7": {
         "text_left": "Remove lid from shaker and pour into chilled glass",
         "media_left": ["gifs/long_island_iced_tea/strain.gif"],
         "text_right": "Drag the shaker over the glass to pour",
-        "media_right": ["images/highball_glass.png", "images/shaker.png"]
+        "media_right": [
+          {
+            "src": "images/highball_glass.png",
+            "id": "highball-glass",
+            "ondragover": "event.preventDefault()",
+            "ondrop": "handleDrop(event, 'highball-glass')"
+          },
+          {
+            "src": "images/shaker.png",
+            "id": "shaker",
+            "draggable": "true",
+            "ondragstart": "handleDragStart(event)"
+          }
+        ],
+        "event_config": {
+          "shake": false
+        }
       },
       "8": {
         "text_left": "Pour Coca-Cola into glass until it's full",
         "media_left": ["gifs/long_island_iced_tea/coke.gif"],
         "text_right": "Select the correct drink to add to the cocktail",
-        "media_right": ["images/coke.jpg", "images/apple_juice.jpg", "images/sprite.jpg", "images/fanta.jpg"]
+        "media_right": [
+          {
+            "src": "images/coke.jpg",
+            "id": "coke",
+            "onclick": "handleDrinkClick(this)"
+          },
+          {
+            "src": "images/apple_juice.jpg",
+            "id": "apple-juice",
+            "onclick": "handleDrinkClick(this)"
+          },
+          {
+            "src": "images/sprite.jpg",
+            "id": "sprite",
+            "onclick": "handleDrinkClick(this)"
+          },
+          {
+            "src": "images/fanta.jpg",
+            "id": "fanta",
+            "onclick": "handleDrinkClick(this)"
+          }
+        ]
       },
       "9": {
         "text_left": "Stir the drink with barspoon, add lemon wedge, and serve!",
         "media_left": ["gifs/long_island_iced_tea/stirgarnishserve.gif"],
         "text_right": "Drag the barspoon into the drink, remove it, and place the lemon wedge in the drink",
-        "media_right": ["images/stir.jpg", "images/lemon_sliced.png", "images/long_island_iced_tea_no_lemon.png"]
+        "media_right": [
+          {
+            "src": "images/stir.jpg",
+            "id": "stir",
+            "draggable": "true",
+            "ondragstart": "handleDragStart(event)"
+          },
+          {
+            "src": "images/lemon_sliced.png",
+            "id": "lemon-sliced",
+            "draggable": "true",
+            "ondragstart": "handleDragStart(event)"
+          },
+          {
+            "src": "images/long_island_iced_tea_no_lemon.png",
+            "id": "drink",
+            "ondragover": "event.preventDefault()",
+            "ondrop": "handleDrop(event, 'drink')"
+          }
+        ]
       }
     },
     "quiz": {

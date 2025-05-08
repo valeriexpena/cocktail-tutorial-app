@@ -3,6 +3,7 @@
 {% block title %}{{ cocktail_name }} - Step {{ step_id }}{% endblock %}
 
 {% block content %}
+
 <body class="learn-body">
   <h1 class="learn-title">How to Make {{ cocktail_name }}</h1>
   <h2>Step {{ step_id }}</h2>
@@ -11,104 +12,25 @@
     <div class="learn-flex-child">
       <p>{{ step_data["text_left"] }}</p>
       {% for img in step_data["media_left"] %}
-        <img class="learn-img-large" src="/static/{{ img }}">
+      <img class="learn-img-large" src="/static/{{ img }}">
       {% endfor %}
     </div>
 
     <div class="learn-flex-child">
       <p>{{ step_data["text_right"] }}</p>
-
       <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
-        {% for img in step_data["media_right"] %}
-          {% set img_name = img.split('/')[-1] %}
-
-          {% if "lemon_sliced" in img_name %}
-            <img id="lemon-sliced" class="learn-img-small"
-                 src="/static/{{ img }}" 
-                 {% if step_id == "1" %}
-                  style="display: none;">
-
-              {% elif step_id == "9" %}
-                 draggable="true"
-                 ondragstart="handleDragStart(event)">
-                 {% endif %}
-
-
-
-          {% elif "lemon.png" == img_name %}
-            <img id="lemon" class="learn-img-small"
-                 src="/static/{{ img }}" ondragover="event.preventDefault()"
-                 ondrop="handleDrop(event, 'lemon')">
-
-          {% elif "knife" in img_name %}
-            <img id="knife" class="learn-img-small"
-                 src="/static/{{ img }}" draggable="true"
-                 ondragstart="handleDragStart(event)">
-
-          {% elif "ice_cube" in img_name %}
-            <img id="ice-cube" class="learn-img-small"
-                 src="/static/{{ img }}" draggable="true"
-                 ondragstart="handleDragStart(event)">
-
-          {% elif "shaker" in img_name %}
-            <img id="shaker" class="learn-img-small"
-                 src="/static/{{ img }}" 
-                 {% if step_id == "6" %}
-                   onmousedown="startShake(event)" 
-                   onmouseup="stopShake()" 
-                   onmouseleave="stopShake()"
-                 {% elif step_id == "7" %}
-                   draggable="true"
-                   ondragstart="handleDragStart(event)"
-                 {% else %}
-                   ondragover="event.preventDefault()"
-                   ondrop="handleDrop(event, 'shaker')"
-                 {% endif %}>
-
-          {% elif "glass" in img_name or "highball" in img_name %}
-            <img id="glass" class="learn-img-small"
-                 src="/static/{{ img }}" ondragover="event.preventDefault()"
-                 ondrop="handleDrop(event, 'glass')">
-
-          {% elif "vodka" in img_name or "tequila" in img_name or "triple_sec" in img_name or "whiskey" in img_name %}
-            <img class="learn-img-small liquor-option"
-                 src="/static/{{ img }}" onclick="handleLiquorClick(this)">
-
-          {% elif "simple" in img_name %}
-            <img id="simple" class="learn-img-small"
-                 src="/static/{{ img }}" draggable="true"
-                 ondragstart="handleDragStart(event)">
-
-          {% elif "jigger" in img_name %}
-            <img id="jigger" class="learn-img-small"
-                 src="/static/{{ img }}" ondragover="event.preventDefault()"
-                 ondrop="handleDrop(event, 'jigger')">
-
-          {% elif "squeeze" in img_name %}
-            <img id="squeeze" class="learn-img-small"
-                 src="/static/{{ img }}" draggable="true"
-                 ondragstart="handleDragStart(event)">
-
-          {% elif "coke" in img_name %}
-            <img id="coke" class="learn-img-small"
-                 src="/static/{{ img }}" 
-                 onclick="handleCokeClick()">
-
-          {% elif "stir" in img_name %}
-            <img id="stir" class="learn-img-small"
-                 src="/static/{{ img }}" 
-                 draggable="true"
-                 ondragstart="handleDragStart(event)">
-
-          {% elif "long_island_iced_tea_no_lemon" in img_name %}
-            <img id="drink" class="learn-img-small"
-                 src="/static/{{ img }}"
-                 ondragover="event.preventDefault()"
-                 ondrop="handleDrop(event, 'drink')">
-
-          {% else %}
-            <img class="learn-img-small" src="/static/{{ img }}">
-          {% endif %}
+        {% for item in step_data["media_right"] %}
+        {% if item is mapping %}
+        <img src="/static/{{ item.src }}" {% if item.id %} id="{{ item.id }}" {% endif %}
+          class="{{ item.class if item.class is defined else 'learn-img-small' }}" {% if item.draggable is defined %}
+          draggable="{{ item.draggable }}" {% endif %} {% if item.ondragstart is defined %}
+          ondragstart="{{ item.ondragstart }}" {% endif %} {% if item.ondragover is defined %}
+          ondragover="{{ item.ondragover }}" {% endif %} {% if item.ondrop is defined %} ondrop="{{ item.ondrop }}" {%
+          endif %} {% if item.onclick is defined %} onclick="{{ item.onclick }}" {% endif %} {% if item.style is defined
+          %} style="{{ item.style }}" {% endif %}>
+        {% else %}
+        <img class="learn-img-small" src="/static/{{ item }}">
+        {% endif %}
         {% endfor %}
       </div>
     </div>
@@ -116,21 +38,26 @@
 
   <div style="margin-top: 40px;">
     {% if prev_step_id is not none %}
-      <a href="/cocktail/{{ drink_id }}/step/{{ prev_step_id }}">
-        <button class="button-back">Back</button>
-      </a>
+    <a href="/cocktail/{{ drink_id }}/step/{{ prev_step_id }}">
+      <button class="button-back">Back</button>
+    </a>
     {% endif %}
 
     {% if next_step_id is not none %}
-      <a href="/cocktail/{{ drink_id }}/step/{{ next_step_id }}" id="next-button" style="display: none;">
-        <button class="button-next">Next</button>
-      </a>
+    <a href="/cocktail/{{ drink_id }}/step/{{ next_step_id }}" id="next-button" style="display: none;">
+      <button class="button-next">Next</button>
+    </a>
     {% endif %}
   </div>
 
   <script>
+    let sugarStartTime = null; // global for sugar syrup timing
+
     function handleDragStart(event) {
       event.dataTransfer.setData("text/plain", event.target.id);
+      if (event.target.id === "simple-syrup") {
+        sugarStartTime = Date.now();
+      }
     }
 
     function handleDrop(event, target) {
@@ -145,18 +72,21 @@
         revealNext();
       }
 
-      // Ice into shaker or glass
-      if (draggedId === "ice-cube" && (target === "shaker" || target === "glass")) {
+      // Ice into shaker or any glass (e.g., highball-glass)
+      if (draggedId === "ice-cube" && (target === "shaker" || target.includes("glass"))) {
         alert(`Great! Ice added to the ${target}.`);
         revealNext();
       }
 
       // Step 4: Syrup to jigger for 2 seconds
-      if (draggedId === "simple" && target === "jigger") {
-        setTimeout(() => {
+      if (draggedId === "simple-syrup" && target === "jigger") {
+        const heldDuration = Date.now() - sugarStartTime;
+        if (heldDuration >= 2000) {
           alert("Syrup poured! Estimated 20ml.");
           revealNext();
-        }, 2000);
+        } else {
+          alert("Hold the syrup over the jigger for at least 2 seconds.");
+        }
       }
 
       // Step 5: Squeeze lemon (squeezer onto jigger)
@@ -165,8 +95,8 @@
         revealNext();
       }
 
-      // Step 7: Pour from shaker to glass
-      if (draggedId === "shaker" && target === "glass") {
+      // Step 7: Pour from shaker to glass (updated)
+      if (draggedId === "shaker" && target === "highball-glass") {
         alert("Drink poured into glass!");
         revealNext();
       }
@@ -191,15 +121,21 @@
       }
     }
 
-    // Shaker click
+    // Shaker event listeners with safe access to event_config
     document.addEventListener("DOMContentLoaded", function () {
-      const shaker = document.getElementById("shaker");
-      if (shaker) {
-        shaker.addEventListener("click", function () {
-          shaker.classList.add("shake");
-          setTimeout(() => shaker.classList.remove("shake"), 500);
-        });
+      const shakeEnabled = {{ (step_data.event_config.shake if step_data.event_config is defined and step_data.event_config.shake is defined else false) | tojson }};
+    const shaker = document.getElementById("shaker");
+    if (shaker) {
+      if (shakeEnabled) {
+        shaker.addEventListener("mousedown", startShake);
+        shaker.addEventListener("mouseup", stopShake);
+        shaker.addEventListener("mouseleave", stopShake);
+      } else {
+        shaker.removeEventListener("mousedown", startShake);
+        shaker.removeEventListener("mouseup", stopShake);
+        shaker.removeEventListener("mouseleave", stopShake);
       }
+    }
     });
 
     // Step 3 liquor selection
@@ -223,6 +159,16 @@
       }
     }
 
+    // New function for step 8 clickable drinks
+    function handleDrinkClick(el) {
+      if (el.id === "coke") {
+        alert("Coca-Cola added!");
+        revealNext();
+      } else {
+        alert("Wrong drink selected!");
+      }
+    }
+
     let shakeStartTime = null;
     let shakeTimer = null;
 
@@ -230,7 +176,7 @@
       shakeStartTime = Date.now();
       const shaker = event.target;
       shaker.classList.add("shake");
-      
+
       shakeTimer = setInterval(() => {
         const shakeDuration = (Date.now() - shakeStartTime) / 1000;
         if (shakeDuration >= 6 && shakeDuration <= 8) {
@@ -268,13 +214,26 @@
     }
 
     @keyframes shake {
-      0% { transform: rotate(0deg); }
-      25% { transform: rotate(5deg); }
-      50% { transform: rotate(0deg); }
-      75% { transform: rotate(-5deg); }
-      100% { transform: rotate(0deg); }
+      0% {
+        transform: rotate(0deg);
+      }
+
+      25% {
+        transform: rotate(5deg);
+      }
+
+      50% {
+        transform: rotate(0deg);
+      }
+
+      75% {
+        transform: rotate(-5deg);
+      }
+
+      100% {
+        transform: rotate(0deg);
+      }
     }
   </style>
 </body>
 {% endblock %}
-
