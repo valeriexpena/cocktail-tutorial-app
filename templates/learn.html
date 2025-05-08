@@ -24,9 +24,18 @@
 
           {% if "lemon_sliced" in img_name %}
             <img id="lemon-sliced" class="learn-img-small"
-                 src="/static/{{ img }}" style="display: none;">
+                 src="/static/{{ img }}" 
+                 {% if step_id == "1" %}
+                  style="display: none;">
 
-          {% elif "lemon" in img_name %}
+              {% elif step_id == "9" %}
+                 draggable="true"
+                 ondragstart="handleDragStart(event)">
+                 {% endif %}
+
+
+
+          {% elif "lemon.png" == img_name %}
             <img id="lemon" class="learn-img-small"
                  src="/static/{{ img }}" ondragover="event.preventDefault()"
                  ondrop="handleDrop(event, 'lemon')">
@@ -43,8 +52,18 @@
 
           {% elif "shaker" in img_name %}
             <img id="shaker" class="learn-img-small"
-                 src="/static/{{ img }}" ondragover="event.preventDefault()"
-                 ondrop="handleDrop(event, 'shaker')">
+                 src="/static/{{ img }}" 
+                 {% if step_id == "6" %}
+                   onmousedown="startShake(event)" 
+                   onmouseup="stopShake()" 
+                   onmouseleave="stopShake()"
+                 {% elif step_id == "7" %}
+                   draggable="true"
+                   ondragstart="handleDragStart(event)"
+                 {% else %}
+                   ondragover="event.preventDefault()"
+                   ondrop="handleDrop(event, 'shaker')"
+                 {% endif %}>
 
           {% elif "glass" in img_name or "highball" in img_name %}
             <img id="glass" class="learn-img-small"
@@ -69,6 +88,23 @@
             <img id="squeeze" class="learn-img-small"
                  src="/static/{{ img }}" draggable="true"
                  ondragstart="handleDragStart(event)">
+
+          {% elif "coke" in img_name %}
+            <img id="coke" class="learn-img-small"
+                 src="/static/{{ img }}" 
+                 onclick="handleCokeClick()">
+
+          {% elif "stir" in img_name %}
+            <img id="stir" class="learn-img-small"
+                 src="/static/{{ img }}" 
+                 draggable="true"
+                 ondragstart="handleDragStart(event)">
+
+          {% elif "long_island_iced_tea_no_lemon" in img_name %}
+            <img id="drink" class="learn-img-small"
+                 src="/static/{{ img }}"
+                 ondragover="event.preventDefault()"
+                 ondrop="handleDrop(event, 'drink')">
 
           {% else %}
             <img class="learn-img-small" src="/static/{{ img }}">
@@ -128,6 +164,23 @@
         alert("Juiced into jigger!");
         revealNext();
       }
+
+      // Step 7: Pour from shaker to glass
+      if (draggedId === "shaker" && target === "glass") {
+        alert("Drink poured into glass!");
+        revealNext();
+      }
+
+      // Step 9: Stir and garnish
+      if (target === "drink") {
+        if (draggedId === "stir" && garnishStep === 0) {
+          garnishStep = 1;
+          alert("Drink stirred!");
+        } else if (draggedId === "lemon-sliced" && garnishStep === 1) {
+          alert("Lemon garnish added! Cocktail complete!");
+          revealNext();
+        }
+      }
     }
 
     // Show next button
@@ -169,7 +222,59 @@
         revealNext();
       }
     }
+
+    let shakeStartTime = null;
+    let shakeTimer = null;
+
+    function startShake(event) {
+      shakeStartTime = Date.now();
+      const shaker = event.target;
+      shaker.classList.add("shake");
+      
+      shakeTimer = setInterval(() => {
+        const shakeDuration = (Date.now() - shakeStartTime) / 1000;
+        if (shakeDuration >= 6 && shakeDuration <= 8) {
+          clearInterval(shakeTimer);
+          shaker.classList.remove("shake");
+          alert("Perfect shaking time!");
+          revealNext();
+        }
+      }, 100);
+    }
+
+    function stopShake() {
+      if (shakeTimer) {
+        clearInterval(shakeTimer);
+        shakeTimer = null;
+      }
+      const shaker = document.getElementById("shaker");
+      if (shaker) {
+        shaker.classList.remove("shake");
+      }
+      shakeStartTime = null;
+    }
+
+    function handleCokeClick() {
+      alert("Coca-Cola added!");
+      revealNext();
+    }
+
+    let garnishStep = 0;
   </script>
+
+  <style>
+    .shake {
+      animation: shake 0.5s infinite;
+    }
+
+    @keyframes shake {
+      0% { transform: rotate(0deg); }
+      25% { transform: rotate(5deg); }
+      50% { transform: rotate(0deg); }
+      75% { transform: rotate(-5deg); }
+      100% { transform: rotate(0deg); }
+    }
+  </style>
 </body>
 {% endblock %}
 

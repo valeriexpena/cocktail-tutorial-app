@@ -30,32 +30,32 @@
       "5": {
         "text_left": "Use juicer to squeeze lemon wedge into jigger and pour into shaker",
         "media_left": ["gifs/long_island_iced_tea/addlemonjuice.gif"],
-        "text_right": "Drag the lemon above the jigger, and put the juicer on the lemon to juice it into the jigger",
+        "text_right": "Drag the lemon and juicer above the jigger to juice the lemon into the jigger",
         "media_right": ["images/jigger.png", "images/squeeze.png"]
       },
       "6": {
-        "text_left": "Put lid on shaker and shake vigorously for 7 seconds",
+        "text_left": "Put lid on shaker and shake shaker vigorously for 7 seconds",
         "media_left": ["gifs/long_island_iced_tea/shake.gif"],
         "text_right": "Shake the closed shaker for 7 seconds",
-        "media_right": []
+        "media_right": ["images/shaker.png"]
       },
       "7": {
         "text_left": "Remove lid from shaker and pour into chilled glass",
         "media_left": ["gifs/long_island_iced_tea/strain.gif"],
-        "text_right": "Remove the lid from the shaker, and drag the shaker over the glass to pour",
-        "media_right": []
+        "text_right": "Drag the shaker over the glass to pour",
+        "media_right": ["images/highball_glass.png", "images/shaker.png"]
       },
       "8": {
         "text_left": "Pour Coca-Cola into glass until it's full",
         "media_left": ["gifs/long_island_iced_tea/coke.gif"],
-        "text_right": "Drag the correct drink above the glass to pour it in",
-        "media_right": []
+        "text_right": "Select the correct drink to add to the cocktail",
+        "media_right": ["images/coke.jpg", "images/apple_juice.jpg", "images/sprite.jpg", "images/fanta.jpg"]
       },
       "9": {
         "text_left": "Stir the drink with barspoon, add lemon wedge, and serve!",
         "media_left": ["gifs/long_island_iced_tea/stirgarnishserve.gif"],
         "text_right": "Drag the barspoon into the drink, remove it, and place the lemon wedge in the drink",
-        "media_right": ["images/cola.jpg"]
+        "media_right": ["images/stir.jpg", "images/lemon_sliced.png", "images/long_island_iced_tea_no_lemon.png"]
       }
     },
     "quiz": {
