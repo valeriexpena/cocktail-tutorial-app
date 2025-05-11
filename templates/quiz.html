@@ -1,61 +1,146 @@
 {% extends "base.html" %}
-
 {% block title %}Quiz: {{ cocktail_name }} - Question {{ question_id }}{% endblock %}
-
 {% block content %}
-
 <body>
   <h1>Quiz: {{ cocktail_name }}</h1>
   <h2>Question {{ question_id }}</h2>
   <p>{{ question["question"] }}</p>
 
-  <form method="POST" action="/cocktail/{{ drink_id }}/quiz/{{ question_id }}">
-    {% if question["type"] == "multiple-choice" or question["type"] == "checkbox" %}
-    {% for option in question["options"] %}
-    <label>
-      <input type="{{ 'checkbox' if question['type'] == 'checkbox' else 'radio' }}" name="answer" value="{{ option }}"
-        onchange="enableShowAnswer()">
-      {{ option }}
-    </label><br>
-    {% endfor %}
+  <form method="POST" action="/cocktail/{{ drink_id }}/quiz/{{ question_id }}" data-type="{{ question['type'] }}">
 
-    {% elif question["type"] == "drag-timer" %}
-    <p> This is a drag-timer question.<br></p>
-    <!-- Target Time: {{ question["correct"] }}s ±{{ question["tolerance"] }}s</p> -->
+  {% if question["type"] in ["multiple-choice", "checkbox", "image-select"] %}
+    {% if (drink_id in ["1", "2", "3"]) and question_id == "1" or question["type"] == "image-select" %}
+      <div class="quiz-option-row">
+        {% for option in question["options"] %}
+          <div class="image-option" onclick="toggleSelection(this)">
+            <img src="/static/images/{{ option | lower | replace(' ', '_') }}.png" alt="{{ option }}">
+            <input type="checkbox" name="answer" value="{{ option }}" hidden>
+            <p>{{ option }}</p>
+          </div>
+        {% endfor %}
+      </div>
+
+    {% elif (drink_id == "1" and question_id == "2") or (drink_id == "2" and question_id in ["2", "4"]) %}
+      <div class="liquor-shelf">
+        {% for option in question["options"] %}
+          <img
+            src="/static/images/{{ option | lower | replace(' ', '_') }}.png"
+            alt="{{ option }}"
+            draggable="true"
+            class="liquor-option"
+            data-name="{{ option }}"
+            ondragstart="handleLiquorDrag(event)"
+          />
+        {% endfor %}
+      </div>
+      <div id="shaker-drop-zone" class="shaker-drop" data-multi="true"
+           ondragover="event.preventDefault()"
+           ondrop="handleLiquorDrop(event)">
+        Drop here!
+      </div>
+      <input type="hidden" name="answer" id="liquor-answer" />
+
+    {% else %}
+      <div class="quiz-option-row">
+        {% for option in question["options"] %}
+          <label>
+            <input type="{{ 'checkbox' if question['type'] == 'checkbox' else 'radio' }}"
+                   name="answer" value="{{ option }}" onchange="enableShowAnswer()">
+            {{ option }}
+          </label><br>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+  {% elif question["type"] == "drag-timer" %}
+    <p>This is a drag-timer question.<br></p>
     <label>How many seconds did you hold it for?
       <input type="number" name="answer"
         onchange="validateDragTimer(this, {{ question['correct'] }}, {{ question['tolerance'] }})">
     </label>
 
-    {% elif question["type"] == "drag-quantity" %}
-    <p> Drag {{ question["correct"] }} items to the correct spot.</p>
-    <label>How many items did you drag?
-      <input type="number" name="answer" onchange="validateDragQuantity(this, {{ question['target'] }})">
-    </label>
+  {% elif question["type"] == "drag-quantity" %}
+    {% if drink_id == "2" and question_id == "4" %}
+      <p>Drag the correct number of coffee beans onto the drink.</p>
+      <div class="bean-drop-area-wrapper">
+        <div class="bean-source">
+          <img
+            src="/static/images/coffee_bean.png"
+            id="bean"
+            draggable="true"
+            ondragstart="handleBeanDrag(event)"
+            style="width: 50px;"
+          />
+          <p>Drag me!</p>
+        </div>
 
-    {% elif question["type"] == "drag-select" %}
-    <p>Drag the correct option into the drop area.</p>
-    <div id="drag-options">
-      {% for option in question["options"] %}
-      <div class="draggable-option" draggable="true"
-        ondragstart="event.dataTransfer.setData('text/plain', '{{ option }}')">
-        {{ option }}
+        <div id="cup-drop-area"
+          class="drop-target"
+          ondragover="event.preventDefault()"
+          ondrop="handleBeanDrop(event)">
+          <img src="/static/images/martini_glass.png" alt="Glass" style="width: 150px;" />
+          <div id="bean-count-overlay"></div>
+        </div>
       </div>
-      {% endfor %}
-    </div>
-    <div id="drop-area" class="quiz-drop-area" ondragover="event.preventDefault()" ondrop="handleDrop(event)">
-      Drop here
-    </div>
-    <input type="hidden" name="answer" id="drag-select-answer">
+      <input type="hidden" name="answer" id="bean-count" value="0">
+    {% else %}
+      <label>How many items did you drag?
+        <input type="number" name="answer" onchange="validateDragQuantity(this, {{ question['correct'] }})">
+      </label>
     {% endif %}
 
-    <br><br>
-    <button type="button" id="show-answer" onclick="showAnswer()" disabled>Show Answer</button>
-    <button type="button" id="next-button" onclick="navigateToNextQuestion()" disabled>Next</button>
+  {% elif question["type"] == "drag-select" %}
+    <p>Drag the correct option into the drop area.</p>
+    {% if drink_id == "1" and question_id == "4" %}
+      {% set image_map = {
+        "Coca-Cola": "coke.png",
+        "Fanta": "fanta.png",
+        "Sprite": "sprite.png",
+        "Apple Juice": "apple_juice.png"
+      } %}
+      <div class="liquor-shelf">
+        {% for option in question["options"] %}
+          <img
+            src="/static/images/{{ image_map[option] }}"
+            alt="{{ option }}"
+            draggable="true"
+            class="liquor-option"
+            data-name="{{ option }}"
+            ondragstart="handleDrinkDrag(event)"
+          />
+        {% endfor %}
+      </div>
+      <div id="drink-drop-zone" class="shaker-drop"
+           ondragover="event.preventDefault()"
+           ondrop="handleDrinkDrop(event)">
+        Drop here!
+      </div>
+      <input type="hidden" name="answer" id="drag-select-answer" />
+    {% else %}
+      <div id="drag-options">
+        {% for option in question["options"] %}
+          <div class="draggable-option" draggable="true"
+            ondragstart="event.dataTransfer.setData('text/plain', '{{ option }}')">
+            {{ option }}
+          </div>
+        {% endfor %}
+      </div>
+      <div id="drop-area" class="quiz-drop-area"
+           ondragover="event.preventDefault()"
+           ondrop="handleDrop(event)">
+        Drop here
+      </div>
+      <input type="hidden" name="answer" id="drag-select-answer" />
+    {% endif %}
+  {% endif %}
+
+  <br><br>
+  <button type="button" id="show-answer" onclick="showAnswer()" disabled>Show Answer</button>
+  <button type="button" id="next-button" onclick="navigateToNextQuestion()" disabled>Next</button>
   </form>
 
   <div id="answer-section" class="quiz-answer-section"></div>
   <script src="{{ url_for('static', filename='quiz.js') }}"></script>
 </body>
-
 {% endblock %}
+
