@@ -30,7 +30,7 @@
       "2": {
         "text_left": "Using ice scoop, fill highball glass and shaker with cubed ice",
         "media_left": ["gifs/long_island_iced_tea/prepareice.gif"],
-        "text_right": "Drag the ice into both the shaker and the glass to add ice. Then, tap the shaker to shake it!",
+        "text_right": "Drag the ice into both the shaker and the glass to add ice.",
         "media_right": [
           {
             "src": "images/ice_cube.png",
@@ -85,7 +85,7 @@
         "text_right": "Drag the sugar syrup over the jigger for 2 seconds to estimate 20ml",
         "media_right": [
           {
-            "src": "images/simple.png",
+            "src": "images/syrup.png",
             "id": "simple-syrup",
             "draggable": "true",
             "ondragstart": "handleDragStart(event)"
@@ -161,22 +161,22 @@
         "text_right": "Select the correct drink to add to the cocktail",
         "media_right": [
           {
-            "src": "images/coke.jpg",
+            "src": "images/coke.png",
             "id": "coke",
             "onclick": "handleDrinkClick(this)"
           },
           {
-            "src": "images/apple_juice.jpg",
+            "src": "images/apple_juice.png",
             "id": "apple-juice",
             "onclick": "handleDrinkClick(this)"
           },
           {
-            "src": "images/sprite.jpg",
+            "src": "images/sprite.png",
             "id": "sprite",
             "onclick": "handleDrinkClick(this)"
           },
           {
-            "src": "images/fanta.jpg",
+            "src": "images/fanta.png",
             "id": "fanta",
             "onclick": "handleDrinkClick(this)"
           }
@@ -242,153 +242,340 @@
       }
     }
   },
-
-  "2": {
-    "name": "Espresso Martini",
-    "image": "images/espresso_martini_home.png",
-    "steps": {
-      "1": {
-        "text_left": "Prepare a shot of espresso and let it cool.",
-        "media_left": ["images/espresso.jpg"],
-        "text_right": "Brew a fresh shot of espresso and allow it to cool before using.",
-        "media_right": []
+    "2": {
+      "name": "Espresso Martini",
+      "image": "images/espresso_martini_home.png",
+      "steps": {
+        "1": {
+          "text_left": "Prepare a shot of espresso and let it cool.",
+          "media_left": ["images/espresso.jpg"],
+          "text_right": "Brew a fresh shot of espresso by clicking the espresso machine.",
+          "media_right": [
+            {
+              "src": "images/espresso_machine.jpg",
+              "id": "espresso-machine",
+              "onclick": "handleEspressoClick()"
+            }
+          ]
+        },
+        "2": {
+          "text_left": "Fill shaker with ice cubes.",
+          "media_left": ["images/ice_cube.png"],
+          "text_right": "Drag the ice cubes into the shaker to fill it.",
+          "media_right": [
+            {
+              "src": "images/ice_cube.png",
+              "id": "ice-cube",
+              "draggable": "true",
+              "ondragstart": "handleDragStart(event)"
+            },
+            {
+              "src": "images/shaker.png",
+              "id": "shaker",
+              "ondragover": "event.preventDefault()",
+              "ondrop": "handleDrop(event, 'shaker')"
+            }
+          ]
+        },
+        "3": {
+          "text_left": "Measure 50ml of vodka and pour into shaker.",
+          "media_left": ["images/vodka.png"],
+          "text_right": "Drag the vodka over the jigger to measure, then pour the jigger into the shaker.",
+          "media_right": [
+            {
+              "src": "images/vodka.png",
+              "id": "vodka",
+              "draggable": "true",
+              "ondragstart": "handleDragStart(event)"
+            },
+            {
+              "src": "images/jigger.png",
+              "id": "jigger",
+              "ondragover": "event.preventDefault()",
+              "ondrop": "handleDrop(event, 'jigger')"
+            },
+            {
+              "src": "images/shaker.png",
+              "id": "shaker",
+              "ondragover": "event.preventDefault()",
+              "ondrop": "handleDrop(event, 'shaker')"
+            }
+          ]
+        },
+        "4": {
+          "text_left": "Measure 25ml of coffee liqueur and pour into shaker.",
+          "media_left": ["images/coffee_liqueur.jpg"],
+          "text_right": "Drag the coffee liqueur over the jigger to measure, then pour the jigger into the shaker.",
+          "media_right": [
+            {
+              "src": "images/coffee_liqueur.jpg",
+              "id": "coffee-liqueur",
+              "draggable": "true",
+              "ondragstart": "handleDragStart(event)"
+            },
+            {
+              "src": "images/jigger.png",
+              "id": "jigger",
+              "ondragover": "event.preventDefault()",
+              "ondrop": "handleDrop(event, 'jigger')"
+            },
+            {
+              "src": "images/shaker.png",
+              "id": "shaker",
+              "ondragover": "event.preventDefault()",
+              "ondrop": "handleDrop(event, 'shaker')"
+            }
+          ]
+        },
+        "5": {
+          "text_left": "Add the cooled espresso shot to the shaker.",
+          "media_left": ["images/espresso.jpg"],
+          "text_right": "Drag the espresso shot into the shaker.",
+          "media_right": [
+            {
+              "src": "images/espresso.jpg",
+              "id": "espresso",
+              "draggable": "true",
+              "ondragstart": "handleDragStart(event)"
+            },
+            {
+              "src": "images/shaker.png",
+              "id": "shaker",
+              "ondragover": "event.preventDefault()",
+              "ondrop": "handleDrop(event, 'shaker')"
+            }
+          ]
+        },
+        "6": {
+          "text_left": "Put lid on shaker and shake vigorously for 10 seconds.",
+          "media_left": ["images/shaker.jpg"],
+          "text_right": "Shake the closed shaker for 10 seconds.",
+          "media_right": [
+            {
+              "src": "images/shaker.png",
+              "id": "shaker"
+            }
+          ],
+          "event_config": {
+            "shake": true
+          }
+        },
+        "7": {
+          "text_left": "Strain the mixture into a chilled martini glass.",
+          "media_left": ["images/martini_glass.png"],
+          "text_right": "Drag the shaker over the martini glass to strain the mixture.",
+          "media_right": [
+            {
+              "src": "images/martini_glass.png",
+              "id": "martini-glass",
+              "ondragover": "event.preventDefault()",
+              "ondrop": "handleDrop(event, 'martini-glass')"
+            },
+            {
+              "src": "images/shaker.png",
+              "id": "shaker",
+              "draggable": "true",
+              "ondragstart": "handleDragStart(event)"
+            }
+          ],
+          "event_config": {
+            "shake": false
+          }
+        },
+        "8": {
+          "text_left": "Garnish with three coffee beans and serve.",
+          "media_left": ["images/coffee_beans.png"],
+          "text_right": "Place three coffee beans on top of the drink for garnish.",
+          "media_right": [
+            {
+              "src": "images/coffee_beans.png",
+              "id": "coffee-beans",
+              "draggable": "true",
+              "ondragstart": "handleDragStart(event)"
+            },
+            {
+              "src": "images/espresso_martini_no_beans.jpg",
+              "id": "espresso-martini",
+              "ondragover": "event.preventDefault()",
+              "ondrop": "handleDrop(event, 'espresso-martini')"
+            }
+          ]
+        }
       },
-      "2": {
-        "text_left": "Fill shaker with ice cubes.",
-        "media_left": ["images/ice_cube.png"],
-        "text_right": "Drag the ice cubes into the shaker to fill it.",
-        "media_right": []
-      },
-      "3": {
-        "text_left": "Measure 50ml of vodka and pour into shaker.",
-        "media_left": ["images/vodka.jpg"],
-        "text_right": "Select the vodka and pour it into the shaker.",
-        "media_right": []
-      },
-      "4": {
-        "text_left": "Measure 25ml of coffee liqueur and pour into shaker.",
-        "media_left": ["images/coffee_liqueur.jpg"],
-        "text_right": "Drag the coffee liqueur over the jigger to measure and pour it into the shaker.",
-        "media_right": []
-      },
-      "5": {
-        "text_left": "Add the cooled espresso shot to the shaker.",
-        "media_left": ["images/espresso.jpg"],
-        "text_right": "Drag the espresso shot into the shaker.",
-        "media_right": []
-      },
-      "6": {
-        "text_left": "Put lid on shaker and shake vigorously for 10 seconds.",
-        "media_left": ["images/shaker.jpg"],
-        "text_right": "Shake the closed shaker for 10 seconds.",
-        "media_right": []
-      },
-      "7": {
-        "text_left": "Strain the mixture into a chilled martini glass.",
-        "media_left": ["images/martini_glass.jpg"],
-        "text_right": "Drag the shaker over the martini glass to strain the mixture.",
-        "media_right": []
-      },
-      "8": {
-        "text_left": "Garnish with three coffee beans and serve.",
-        "media_left": ["images/coffee_beans.jpg"],
-        "text_right": "Place three coffee beans on top of the drink for garnish.",
-        "media_right": []
+      "quiz": {
+        "1": {
+          "question": "Select the correct containers to scoop ice into.",
+          "type": "checkbox",
+          "options": ["Martini glass", "Shaker", "Highball glass", "Wine glass"],
+          "correct": ["Martini glass", "Shaker"]
+        },
+        "2": {
+          "question": "Select the correct ingredients to add to the espresso martini.",
+          "type": "checkbox",
+          "options": [
+            "Vodka",
+            "Espresso",
+            "Coffee liqueur",
+            "Orange juice",
+            "Tequila"
+          ],
+          "correct": ["Vodka", "Espresso", "Coffee liqueur"]
+        },
+        "3": {
+          "question": "How long should you shake the shaker?",
+          "type": "drag-timer",
+          "correct": 9,
+          "tolerance": 1
+        },
+        "4": {
+          "question": "Drag the correct number of coffee beans onto the drink.",
+          "type": "drag-quantity",
+          "correct": 3
+        }
       }
     },
-    "quiz": {
-      "1": {
-        "question": "Select the correct containers to scoop ice into.",
-        "type": "checkbox",
-        "options": ["Martini glass", "Shaker", "Highball glass", "Wine glass"],
-        "correct": ["Martini glass", "Shaker"]
+  
+    "3": {
+      "name": "Aperol Spritz",
+      "image": "images/aperol_spritz_home.png",
+      "steps": {
+        "1": {
+          "text_left": "Cut an orange wedge to use for garnish.",
+          "media_left": ["images/orange.jpg"],
+          "text_right": "Cut the orange yourself!",
+          "media_right": [
+            {
+              "src": "images/orange.jpg",
+              "id": "orange",
+              "ondragover": "event.preventDefault()",
+              "ondrop": "handleDrop(event, 'orange')"
+            },
+            {
+              "src": "images/knife.png",
+              "id": "knife",
+              "draggable": "true",
+              "ondragstart": "handleDragStart(event)"
+            },
+            {
+              "src": "images/orange_wedge.jpg",
+              "id": "orange-wedge",
+              "style": "display: none;"
+            }
+          ]
+        },
+        "2": {
+          "text_left": "Fill the wine glass with cubed ice.",
+          "media_left": ["images/ice.jpg"],
+          "text_right": "Drag the scoop of ice into the wine glass to place ice in it.",
+          "media_right": [
+            {
+              "src": "images/ice_cube.png",
+              "id": "ice-cube",
+              "draggable": "true",
+              "ondragstart": "handleDragStart(event)"
+            },
+            {
+              "src": "images/wine_glass.png",
+              "id": "wine-glass",
+              "ondragover": "event.preventDefault()",
+              "ondrop": "handleDrop(event, 'wine-glass')"
+            }
+          ]
+        },
+        "3": {
+          "text_left": "Using a jigger, add 60ml Aperitivo Bitters, 30ml soda water, and 90ml prosecco.",
+          "media_left": [
+            "images/aperitivo_bitters.png",
+            "images/soda_water.png",
+            "images/prosecco.png"
+          ],
+          "text_right": "Drag each ingredient over the jigger to measure and pour.",
+          "media_right": [
+            {
+              "src": "images/aperitivo_bitters.png",
+              "id": "aperitivo",
+              "draggable": "true",
+              "ondragstart": "handleDragStart(event)"
+            },
+            {
+              "src": "images/soda_water.png",
+              "id": "soda-water",
+              "draggable": "true",
+              "ondragstart": "handleDragStart(event)"
+            },
+            {
+              "src": "images/prosecco.png",
+              "id": "prosecco",
+              "draggable": "true",
+              "ondragstart": "handleDragStart(event)"
+            },
+            {
+              "src": "images/jigger.png",
+              "id": "jigger",
+              "ondragover": "event.preventDefault()",
+              "ondrop": "handleDrop(event, 'jigger')"
+            }
+          ]
+        },
+        "4": {
+          "text_left": "Stir the mixture in the wine glass with a bar spoon.",
+          "media_left": ["images/stir.jpg"],
+          "text_right": "Drag the barspoon over the drink to stir.",
+          "media_right": [
+            {
+              "src": "images/stir.jpg",
+              "id": "stir",
+              "draggable": "true",
+              "ondragstart": "handleDragStart(event)"
+            },
+            {
+              "src": "images/wine_glass.png",
+              "id": "wine-glass",
+              "ondragover": "event.preventDefault()",
+              "ondrop": "handleDrop(event, 'wine-glass')"
+            }
+          ]
+        },
+        "5": {
+          "text_left": "Garnish with the orange wedge and serve.",
+          "media_left": ["images/orange.jpg"],
+          "text_right": "Drag the orange wedge onto the drink.",
+          "media_right": [
+            {
+              "src": "images/orange_wedge.jpg",
+              "id": "orange-wedge",
+              "draggable": "true",
+              "ondragstart": "handleDragStart(event)"
+            },
+            {
+              "src": "images/aperol_spritz_no_orange.png",
+              "id": "aperol-spritz",
+              "ondragover": "event.preventDefault()",
+              "ondrop": "handleDrop(event, 'aperol-spritz')"
+            }
+          ]
+        }
       },
-      "2": {
-        "question": "Select the correct ingredients to add to the espresso martini.",
-        "type": "checkbox",
-        "options": [
-          "Vodka",
-          "Espresso",
-          "Coffee liqueur",
-          "Orange juice",
-          "Tequila"
-        ],
-        "correct": ["Vodka", "Espresso", "Coffee liqueur"]
-      },
-      "3": {
-        "question": "How long should you shake the shaker?",
-        "type": "drag-timer",
-        "correct": 9,
-        "tolerance": 1
-      },
-      "4": {
-        "question": "Drag the correct number of coffee beans onto the drink.",
-        "type": "checkbox",
-        "options": ["1", "3", "5", "8"],
-        "correct": ["3"]
-
-      }
-    }
-  },
-
-  "3": {
-    "name": "Aperol Spritz",
-    "image": "images/aperol_spritz_home.png",
-    "steps": {
-      "1": {
-        "text_left": "Cut an orange wedge to use for garnish.",
-        "media_left": ["images/orange.jpg"],
-        "text_right": "Cut the orange yourself!",
-        "media_right": []
-      },
-      "2": {
-        "text_left": "Fill the wine glass with cubed ice.",
-        "media_left": ["images/ice.jpg"],
-        "text_right": "Drag the scoop of ice into the wine glass to place ice in it.",
-        "media_right": []
-      },
-      "3": {
-        "text_left": "Using a jigger, add 60ml Aperitivo Bitters, 30ml soda water, and 90ml prosecco.",
-        "media_left": [
-          "images/aperitivo.jpg",
-          "images/soda_water.jpg",
-          "images/prosecco.jpg"
-        ],
-        "text_right": "Drag each ingredient over the jigger to measure and pour.",
-        "media_right": []
-      },
-      "4": {
-        "text_left": "Stir the mixture in the wine glass with a bar spoon.",
-        "media_left": ["images/stir.jpg"],
-        "text_right": "Drag the barspoon over the drink to stir.",
-        "media_right": []
-      },
-      "5": {
-        "text_left": "Garnish with the orange wedge and serve.",
-        "media_left": ["images/orange.jpg"],
-        "text_right": "Drag the orange wedge onto the drink.",
-        "media_right": []
-      }
-    },
-    "quiz": {
-      "1": {
-        "question": "Select the correct containers to scoop ice into.",
-        "type": "multiple-choice",
-        "options": ["Martini glass", "Shaker", "Wine glass", "Highball glass"],
-        "correct": ["Wine glass"]
-      },
-      "2": {
-        "question": "Select the correct ingredients to add to the Aperol Spritz.",
-        "type": "image-select",
-        "options": [
-          "Aperitivo Bitters",
-          "Soda water",
-          "Prosecco",
-          "Vodka",
-          "Gin"
-        ],
-        "correct": ["Aperitivo Bitters", "Soda water", "Prosecco"]
+      "quiz": {
+        "1": {
+          "question": "Select the correct containers to scoop ice into.",
+          "type": "multiple-choice",
+          "options": ["Martini glass", "Shaker", "Wine glass", "Highball glass"],
+          "correct": ["Wine glass"]
+        },
+        "2": {
+          "question": "Select the correct ingredients to add to the Aperol Spritz.",
+          "type": "checkbox",
+          "options": [
+            "Aperitivo Bitters",
+            "Soda water",
+            "Prosecco",
+            "Vodka",
+            "Gin"
+          ],
+          "correct": ["Aperitivo Bitters", "Soda water", "Prosecco"]
+        }
       }
     }
   }
-}
+  
