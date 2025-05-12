@@ -72,10 +72,37 @@
         revealNext();
       }
 
+      // Orange cutting
+      if (draggedId === "knife" && target === "orange") {
+        document.getElementById("orange").style.display = "none";
+        document.getElementById("orange-wedge").style.display = "inline";
+        alert("Nice cut!");
+        revealNext();
+      }
+
       // Ice into shaker or any glass (e.g., highball-glass)
       if (draggedId === "ice-cube" && (target === "shaker" || target.includes("glass"))) {
         alert(`Great! Ice added to the ${target}.`);
         revealNext();
+      }
+
+      // Liquor to jigger (for Espresso Martini)
+      if ((draggedId === "vodka" || draggedId === "coffee-liqueur") && target === "jigger") {
+        setTimeout(() => {
+          alert(`${draggedId === "vodka" ? "50ml" : "25ml"} measured!`);
+          revealNext();
+        }, 1000);
+      }
+
+      // Aperol Spritz ingredients to jigger
+      if ((draggedId === "aperitivo" || draggedId === "soda-water" || draggedId === "prosecco") && target === "jigger") {
+        setTimeout(() => {
+          let amount = "60ml";
+          if (draggedId === "soda-water") amount = "30ml";
+          if (draggedId === "prosecco") amount = "90ml";
+          alert(`${amount} of ${draggedId} measured!`);
+          revealNext();
+        }, 1000);
       }
 
       // Step 4: Syrup to jigger for 2 seconds
@@ -95,8 +122,14 @@
         revealNext();
       }
 
-      // Step 7: Pour from shaker to glass (updated)
-      if (draggedId === "shaker" && target === "highball-glass") {
+      // Espresso to shaker
+      if (draggedId === "espresso" && target === "shaker") {
+        alert("Espresso added to shaker!");
+        revealNext();
+      }
+
+      // Step 7: Pour from shaker to glass
+      if (draggedId === "shaker" && target.includes("glass")) {
         alert("Drink poured into glass!");
         revealNext();
       }
@@ -111,6 +144,22 @@
           revealNext();
         }
       }
+
+      // Espresso Martini garnish
+      if (target === "espresso-martini") {
+        if (draggedId === "coffee-beans") {
+          alert("Coffee beans added! Cocktail complete!");
+          revealNext();
+        }
+      }
+
+      // Aperol Spritz garnish
+      if (target === "aperol-spritz") {
+        if (draggedId === "orange-wedge") {
+          alert("Orange wedge added! Cocktail complete!");
+          revealNext();
+        }
+      }
     }
 
     // Show next button
@@ -121,21 +170,27 @@
       }
     }
 
+    // Espresso machine click
+    function handleEspressoClick() {
+      alert("Espresso brewed! Let it cool before using.");
+      revealNext();
+    }
+
     // Shaker event listeners with safe access to event_config
     document.addEventListener("DOMContentLoaded", function () {
       const shakeEnabled = {{ (step_data.event_config.shake if step_data.event_config is defined and step_data.event_config.shake is defined else false) | tojson }};
-    const shaker = document.getElementById("shaker");
-    if (shaker) {
-      if (shakeEnabled) {
-        shaker.addEventListener("mousedown", startShake);
-        shaker.addEventListener("mouseup", stopShake);
-        shaker.addEventListener("mouseleave", stopShake);
-      } else {
-        shaker.removeEventListener("mousedown", startShake);
-        shaker.removeEventListener("mouseup", stopShake);
-        shaker.removeEventListener("mouseleave", stopShake);
+      const shaker = document.getElementById("shaker");
+      if (shaker) {
+        if (shakeEnabled) {
+          shaker.addEventListener("mousedown", startShake);
+          shaker.addEventListener("mouseup", stopShake);
+          shaker.addEventListener("mouseleave", stopShake);
+        } else {
+          shaker.removeEventListener("mousedown", startShake);
+          shaker.removeEventListener("mouseup", stopShake);
+          shaker.removeEventListener("mouseleave", stopShake);
+        }
       }
-    }
     });
 
     // Step 3 liquor selection
@@ -159,16 +214,6 @@
       }
     }
 
-    // New function for step 8 clickable drinks
-    function handleDrinkClick(el) {
-      if (el.id === "coke") {
-        alert("Coca-Cola added!");
-        revealNext();
-      } else {
-        alert("Wrong drink selected!");
-      }
-    }
-
     let shakeStartTime = null;
     let shakeTimer = null;
 
@@ -176,7 +221,7 @@
       shakeStartTime = Date.now();
       const shaker = event.target;
       shaker.classList.add("shake");
-
+      
       shakeTimer = setInterval(() => {
         const shakeDuration = (Date.now() - shakeStartTime) / 1000;
         if (shakeDuration >= 6 && shakeDuration <= 8) {
