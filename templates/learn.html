@@ -60,6 +60,13 @@
       }
     }
 
+    let garnishStep = 0;
+    let glassIce = 0;
+    let shakerIce = 0;
+    let measuredIngredients = new Set();
+    let measuredAperolIngredients = new Set();
+    let coffeeBeansPlaced = 0;
+
     function handleDrop(event, target) {
       event.preventDefault();
       const draggedId = event.dataTransfer.getData("text/plain");
@@ -81,27 +88,84 @@
       }
 
       // Ice into shaker or any glass (e.g., highball-glass)
-      if (draggedId === "ice-cube" && (target === "shaker" || target.includes("glass"))) {
+      if (draggedId === "ice-cube" && (target === "e-shaker" || target === "wine-glass")) {
         alert(`Great! Ice added to the ${target}.`);
         revealNext();
       }
 
+      // Ice handling for Long Island Iced Tea
+      if (draggedId === "ice-cube" && (target === "highball-glass" || target === "shaker")) {
+        if (target === "highball-glass") {
+          glassIce = 1;
+          if (glassIce === 1 && shakerIce === 1) {
+            alert("Perfect! You added ice to both the glass and the shaker.");
+            revealNext();
+          } else {
+            alert("Ice added to glass!");
+          }
+        } else if (target === "shaker") {
+          shakerIce = 1;
+          if (glassIce === 1 && shakerIce === 1) {
+            alert("Perfect! You added ice to both the glass and the shaker.");
+            revealNext();
+          } else {
+            alert("Ice added to shaker!");
+          }
+        }
+      }
+
       // Liquor to jigger (for Espresso Martini)
-      if ((draggedId === "vodka" || draggedId === "coffee-liqueur") && target === "jigger") {
+      if ((draggedId === "vodka" || draggedId === "coffee-liqueur" || draggedId === "espresso" || draggedId === "e-simple-syrup") && target === "jigger") {
         setTimeout(() => {
-          alert(`${draggedId === "vodka" ? "50ml" : "25ml"} measured!`);
-          revealNext();
+          let amount = "";
+          switch(draggedId) {
+            case "vodka":
+              amount = "40ml";
+              break;
+            case "espresso":
+              amount = "30ml";
+              break;
+            case "coffee-liqueur":
+              amount = "20ml";
+              break;
+            case "e-simple-syrup":
+              amount = "10ml";
+              break;
+          }
+          alert(`${amount} measured!`);
+          measuredIngredients.add(draggedId);
+          
+          // Check if all ingredients have been measured
+          if (measuredIngredients.size === 4) {
+            alert("All ingredients measured! Ready to shake!");
+            revealNext();
+          }
         }, 1000);
       }
 
       // Aperol Spritz ingredients to jigger
       if ((draggedId === "aperitivo" || draggedId === "soda-water" || draggedId === "prosecco") && target === "jigger") {
         setTimeout(() => {
-          let amount = "60ml";
-          if (draggedId === "soda-water") amount = "30ml";
-          if (draggedId === "prosecco") amount = "90ml";
-          alert(`${amount} of ${draggedId} measured!`);
-          revealNext();
+          let amount = "";
+          switch(draggedId) {
+            case "aperitivo":
+              amount = "60ml";
+              break;
+            case "soda-water":
+              amount = "30ml";
+              break;
+            case "prosecco":
+              amount = "90ml";
+              break;
+          }
+          alert(`${amount} measured!`);
+          measuredAperolIngredients.add(draggedId);
+          
+          // Check if all ingredients have been measured
+          if (measuredAperolIngredients.size === 3) {
+            alert("All ingredients measured! Ready to stir!");
+            revealNext();
+          }
         }, 1000);
       }
 
@@ -148,7 +212,20 @@
       // Espresso Martini garnish
       if (target === "espresso-martini") {
         if (draggedId === "coffee-beans") {
-          alert("Coffee beans added! Cocktail complete!");
+          coffeeBeansPlaced++;
+          if (coffeeBeansPlaced < 3) {
+            alert(`Coffee bean ${coffeeBeansPlaced} of 3 placed!`);
+          } else {
+            alert("All three coffee beans added! Cocktail complete!");
+            revealNext();
+          }
+        }
+      }
+
+      // Aperol Spritz stir
+      if (target === "wine-glass") {
+        if (draggedId === "stir") {
+          alert("Drink stirred!");
           revealNext();
         }
       }
@@ -214,6 +291,26 @@
       }
     }
 
+    // Step 8 drink selection
+    const correctDrinks = ["coke"];
+    let selectedDrinks = [];
+    function handleDrinkClick(img) {
+      const name = img.src.split('/').pop().split('.')[0];
+      if (correctDrinks.includes(name)) {
+        if (!selectedDrinks.includes(name)) {
+          selectedDrinks.push(name);
+          img.style.border = "3px solid green";
+        }
+      } else {
+        img.style.border = "3px solid red";
+      }
+
+      if (selectedDrinks.length === correctDrinks.length) {
+        alert("Nice job! You added all the correct drinks.");
+        revealNext();
+      }
+    }
+
     let shakeStartTime = null;
     let shakeTimer = null;
 
@@ -249,8 +346,6 @@
       alert("Coca-Cola added!");
       revealNext();
     }
-
-    let garnishStep = 0;
   </script>
 
   <style>
