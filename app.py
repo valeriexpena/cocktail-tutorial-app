@@ -72,13 +72,7 @@ def get_quiz_question(drink_id, question_id):
         user_answer = request.get_json().get("answer")
         correct_answer = question["correct"]
 
-        # If the answer is a JSON string, try to parse it
-        if isinstance(user_answer, str):
-            try:
-                user_answer = json.loads(user_answer)
-            except json.JSONDecodeError:
-                pass  # leave as string
-
+        # Handle drag-timer type
         if question["type"] == "drag-timer":
             target = correct_answer
             tolerance = question["tolerance"]

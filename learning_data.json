@@ -161,22 +161,22 @@
         "text_right": "Select the correct drink to add to the cocktail",
         "media_right": [
           {
-            "src": "images/coke.jpg",
+            "src": "images/coke.png",
             "id": "coke",
             "onclick": "handleDrinkClick(this)"
           },
           {
-            "src": "images/apple_juice.jpg",
+            "src": "images/apple_juice.png",
             "id": "apple-juice",
             "onclick": "handleDrinkClick(this)"
           },
           {
-            "src": "images/sprite.jpg",
+            "src": "images/sprite.png",
             "id": "sprite",
             "onclick": "handleDrinkClick(this)"
           },
           {
-            "src": "images/fanta.jpg",
+            "src": "images/fanta.png",
             "id": "fanta",
             "onclick": "handleDrinkClick(this)"
           }
@@ -230,9 +230,13 @@
       },
       "3": {
         "question": "Drag the sugar syrup over the jigger for the correct time.",
-        "type": "number-input",
+        "type": "drag-timer",
+        "media": {
+          "draggable": "images/simple.png",
+          "target": "images/jigger.png"
+        },
         "correct": 2,
-        "tolerance": 0
+        "tolerance": 1
       },
       "4": {
         "question": "Drag the correct drink above the glass to pour it in.",
@@ -316,17 +320,20 @@
         "correct": ["Vodka", "Espresso", "Coffee liqueur"]
       },
       "3": {
-        "question": "How long should you shake the shaker?",
+        "question": "Shake the shaker in the bar for the correct time.",
         "type": "drag-timer",
-        "correct": 9,
-        "tolerance": 1
+        "media": {
+          "draggable": "images/shaker.png",
+          "target": "images/bar.jpeg"
+        },
+        "correct": 7,
+        "tolerance": 2
       },
       "4": {
         "question": "Drag the correct number of coffee beans onto the drink.",
         "type": "checkbox",
         "options": ["1", "3", "5", "8"],
         "correct": ["3"]
-
       }
     }
   },

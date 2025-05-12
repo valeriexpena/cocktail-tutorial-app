@@ -7,62 +7,84 @@ function disableShowAnswer() {
 function showAnswer() {
   const answerSection = document.getElementById("answer-section");
   const nextButton = document.getElementById("next-button");
+  const form = document.querySelector("form");
+  const questionType = form.dataset.type;
+
   answerSection.style.display = "block";
-  answerSection.innerHTML = "<p>Checking answer...</p>";
-  nextButton.disabled = true;
 
-  sendAnswerData()
-    .then((data) => {
-      let { is_correct, correct_answer } = data;
+  if (questionType === "drag-timer") {
+    const correctTime = form.querySelector("input[name='answer']").dataset
+      .correctTime;
+    answerSection.innerHTML = `<p>✅ Correct Answer: Hold for ${correctTime} seconds.</p>`;
+  } else {
+    answerSection.innerHTML = "<p>Checking answer...</p>";
+    nextButton.disabled = true;
 
-      if (!Array.isArray(correct_answer)) {
-        try {
-          correct_answer = JSON.parse(correct_answer);
-        } catch {
-          correct_answer = [correct_answer];
-        }
-      }
+    sendAnswerData()
+      .then((data) => {
+        let { is_correct, correct_answer } = data;
 
-      const correctSet = new Set(correct_answer);
-
-      document.querySelectorAll('.drop-item, .dropped-liquor, .image-option').forEach(el => {
-        el.classList.remove('correct-drop', 'incorrect-drop', 'correct', 'incorrect', 'selected');
-      });
-
-      document.querySelectorAll('.dropped-liquor').forEach(el => {
-        const value = el.innerText.trim();
-        if (correctSet.has(value)) {
-          el.classList.add("correct-drop");
-        } else {
-          el.classList.add("incorrect-drop");
-        }
-      });
-
-      document.querySelectorAll('.image-option').forEach(div => {
-        const input = div.querySelector('input[name="answer"]');
-        const value = input?.value;
-        if (input?.checked) {
-          if (correctSet.has(value)) {
-            div.classList.add('correct');
-          } else {
-            div.classList.add('incorrect');
+        if (!Array.isArray(correct_answer)) {
+          try {
+            correct_answer = JSON.parse(correct_answer);
+          } catch {
+            correct_answer = [correct_answer];
           }
         }
+
+        const correctSet = new Set(correct_answer);
+
+        document
+          .querySelectorAll(".drop-item, .dropped-liquor, .image-option")
+          .forEach((el) => {
+            el.classList.remove(
+              "correct-drop",
+              "incorrect-drop",
+              "correct",
+              "incorrect",
+              "selected"
+            );
+          });
+
+        document.querySelectorAll(".dropped-liquor").forEach((el) => {
+          const value = el.innerText.trim();
+          if (correctSet.has(value)) {
+            el.classList.add("correct-drop");
+          } else {
+            el.classList.add("incorrect-drop");
+          }
+        });
+
+        document.querySelectorAll(".image-option").forEach((div) => {
+          const input = div.querySelector('input[name="answer"]');
+          const value = input?.value;
+          if (input?.checked) {
+            if (correctSet.has(value)) {
+              div.classList.add("correct");
+            } else {
+              div.classList.add("incorrect");
+            }
+          }
+        });
+
+        answerSection.innerHTML = is_correct
+          ? `<p>✅ Correct</p>`
+          : `<p>❌ Incorrect</p><h3>Correct Answer:</h3><p>${correct_answer.join(
+              ", "
+            )}</p>`;
+
+        nextButton.disabled = false;
+      })
+      .catch((error) => {
+        console.error("Error submitting answer:", error);
+        answerSection.innerHTML =
+          "<p>Error checking answer. Please try again.</p>";
       });
-
-      answerSection.innerHTML = is_correct
-        ? `<p>✅ Correct</p>`
-        : `<p>❌ Incorrect</p><h3>Correct Answer:</h3><p>${correct_answer.join(", ")}</p>`;
-
-      nextButton.disabled = false;
-    })
-    .catch((error) => {
-      console.error("Error submitting answer:", error);
-      answerSection.innerHTML = "<p>Error checking answer. Please try again.</p>";
-    });
+  }
 
   disableShowAnswer();
 }
+
 function sendAnswerData() {
   const form = document.querySelector("form");
   const formData = new FormData(form);
@@ -88,17 +110,32 @@ function sendAnswerData() {
     })
     .then((data) => {
       console.log("Answer submitted successfully:", data);
-      document.getElementById("next-button").dataset.nextQuestionUrl = data.next_question_url || "";
+      document.getElementById("next-button").dataset.nextQuestionUrl =
+        data.next_question_url || "";
+      console.log(
+        "Next question URL 1:",
+        document.getElementById("next-button").dataset.nextQuestionUrl
+      );
       return {
         is_correct: data.is_correct,
         correct_answer: data.correct_answer,
+        next_question_url: data.next_question_url, // Added this line
       };
     });
 }
 
 function navigateToNextQuestion() {
-  const nextQuestionUrl = document.getElementById("next-button").dataset.nextQuestionUrl;
-  if (nextQuestionUrl) window.location.href = nextQuestionUrl;
+  const nextQuestionUrl =
+    document.getElementById("next-button").dataset.nextQuestionUrl;
+  console.log(
+    "Next question URL 2:",
+    document.getElementById("next-button").dataset.nextQuestionUrl
+  );
+  if (nextQuestionUrl) {
+    window.location.href = nextQuestionUrl;
+  } else {
+    alert("No next question URL found.");
+  }
 }
 
 function validateDragTimer(input, target, tolerance) {
@@ -123,7 +160,8 @@ function toggleSelection(div) {
   checkbox.checked = !checkbox.checked;
   div.classList.toggle("selected", checkbox.checked);
 
-  const anyChecked = document.querySelectorAll('input[type="checkbox"]:checked').length > 0;
+  const anyChecked =
+    document.querySelectorAll('input[type="checkbox"]:checked').length > 0;
   if (anyChecked) {
     enableShowAnswer();
   } else {
@@ -151,7 +189,8 @@ function handleLiquorDrop(event) {
     tag.dataset.name = liquor;
 
     zone.appendChild(tag);
-    document.getElementById("liquor-answer").value = JSON.stringify(droppedLiquors);
+    document.getElementById("liquor-answer").value =
+      JSON.stringify(droppedLiquors);
 
     enableShowAnswer();
   }
@@ -204,3 +243,51 @@ function handleBeanDrop(event) {
   enableShowAnswer();
 }
 
+let dragTimerStart = null;
+
+function handleDragTimerStart(event) {
+  dragTimerStart = new Date();
+}
+
+function handleDragTimerEnd(event, correctTime, tolerance) {
+  if (!dragTimerStart) return;
+
+  const dragDuration = (new Date() - dragTimerStart) / 1000;
+  dragTimerStart = null;
+
+  const isValid = Math.abs(dragDuration - correctTime) <= tolerance;
+  const hiddenInput = document.getElementById("drag-timer-answer");
+  hiddenInput.value = dragDuration;
+  hiddenInput.dataset.correctTime = correctTime;
+
+  const feedbackMessage = isValid
+    ? `✅ Correct! You held for ${dragDuration.toFixed(1)} seconds.`
+    : `❌ Incorrect! You held for ${dragDuration.toFixed(
+        1
+      )} seconds. Try again if you'd like.`;
+
+  const answerSection = document.getElementById("answer-section");
+  answerSection.style.display = "block";
+  answerSection.innerHTML = `<p>${feedbackMessage}</p>`;
+
+  // Send the answer to the server
+  sendAnswerData()
+    .then((data) => {
+      const { is_correct, correct_answer, next_question_url } = data;
+      document.getElementById("next-button").dataset.nextQuestionUrl =
+        next_question_url || "";
+
+      answerSection.innerHTML += is_correct
+        ? `<p>✅ Correct</p>`
+        : `<p>❌ Incorrect</p><h3>Correct Answer:</h3><p>${correct_answer}</p>`;
+
+      document.getElementById("next-button").disabled = false;
+    })
+    .catch((error) => {
+      console.error("Error submitting answer:", error);
+      answerSection.innerHTML =
+        "<p>Error checking answer. Please try again.</p>";
+    });
+
+  enableShowAnswer();
+}
