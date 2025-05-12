@@ -374,6 +374,90 @@
         transform: rotate(0deg);
       }
     }
+
+    /* Image size controls */
+    .learn-img-large {
+      max-width: 400px;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      margin: 10px 0;
+    }
+
+    .learn-img-small {
+      max-width: 100px;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      margin: 5px;
+    }
+
+    /* Specific image size adjustments */
+    #shaker, #e-shaker {
+      max-width: 120px;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+    }
+
+    #highball-glass, #martini-glass, #wine-glass {
+      max-width: 150px;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+    }
+
+    #jigger {
+      max-width: 80px;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+    }
+
+    #knife {
+      max-width: 90px;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+    }
+
+    #ice-cube {
+      max-width: 60px;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+    }
+
+    #coffee-beans {
+      max-width: 40px;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+    }
+
+    #stir {
+      max-width: 70px;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+    }
+
+    /* Container for interactive elements */
+    .interactive-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+      align-items: center;
+      margin: 20px 0;
+    }
+
+    /* Ensure all images maintain aspect ratio */
+    img {
+      object-fit: contain;
+      width: auto;
+      height: auto;
+    }
   </style>
 </body>
 {% endblock %}
