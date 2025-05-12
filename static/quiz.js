@@ -25,11 +25,7 @@ function showAnswer() {
         let { is_correct, correct_answer } = data;
 
         if (!Array.isArray(correct_answer)) {
-          try {
-            correct_answer = JSON.parse(correct_answer);
-          } catch {
-            correct_answer = [correct_answer];
-          }
+          correct_answer = [correct_answer];
         }
 
         const correctSet = new Set(correct_answer);
@@ -112,14 +108,15 @@ function sendAnswerData() {
       console.log("Answer submitted successfully:", data);
       document.getElementById("next-button").dataset.nextQuestionUrl =
         data.next_question_url || "";
-      console.log(
-        "Next question URL 1:",
-        document.getElementById("next-button").dataset.nextQuestionUrl
-      );
+      // Process correct_answer: if not array, wrap it.
+      let { is_correct, correct_answer } = data;
+      if (!Array.isArray(correct_answer)) {
+        correct_answer = [correct_answer];
+      }
       return {
-        is_correct: data.is_correct,
-        correct_answer: data.correct_answer,
-        next_question_url: data.next_question_url, // Added this line
+        is_correct: is_correct,
+        correct_answer: correct_answer,
+        next_question_url: data.next_question_url,
       };
     });
 }

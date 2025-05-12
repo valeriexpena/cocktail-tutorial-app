@@ -47,7 +47,6 @@
     {% endif %}
 
     {% elif question["type"] == "drag-timer" %}
-    <p>Drag the correct item over the target and hold for the correct time.</p>
     <div class="drag-timer-wrapper">
       <img src="/static/{{ question['media']['draggable'] }}" alt="Draggable Item" draggable="true"
         ondragstart="handleDragTimerStart(event)"
@@ -59,7 +58,6 @@
 
     {% elif question["type"] == "drag-quantity" %}
     {% if drink_id == "2" and question_id == "4" %}
-    <p>Drag the correct number of coffee beans onto the drink.</p>
     <div class="bean-drop-area-wrapper">
       <div class="bean-source">
         <img src="/static/images/coffee_bean.png" id="bean" draggable="true" ondragstart="handleBeanDrag(event)"

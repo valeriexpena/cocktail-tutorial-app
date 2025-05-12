@@ -71,6 +71,12 @@ def get_quiz_question(drink_id, question_id):
     if request.method == "POST":
         user_answer = request.get_json().get("answer")
         correct_answer = question["correct"]
+        
+        if isinstance(user_answer, str):
+            try:
+                user_answer = json.loads(user_answer)
+            except json.JSONDecodeError:
+                pass  # leave as string
 
         # Handle drag-timer type
         if question["type"] == "drag-timer":
@@ -84,10 +90,12 @@ def get_quiz_question(drink_id, question_id):
 
         elif question["type"] == "drag-quantity":
             try:
-                if user_answer is None or str(user_answer).strip() == "":
+                # Ensure we trim the answer first; if empty, treat as 0
+                ua = str(user_answer).strip()
+                if ua == "":
                     is_correct = False
                 else:
-                    is_correct = int(user_answer) == correct_answer
+                    is_correct = int(ua) == correct_answer
             except (TypeError, ValueError):
                 is_correct = False
 
