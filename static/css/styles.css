@@ -505,3 +505,18 @@ body {
   color: red;
   font-weight: bold;
 }
+
+.remove-btn {
+  background-color: gray;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-size: 12px;
+  margin-left: 5px;
+}

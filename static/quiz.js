@@ -43,7 +43,7 @@ function showAnswer() {
           });
 
         document.querySelectorAll(".dropped-liquor").forEach((el) => {
-          const value = el.innerText.trim();
+          const value = el.dataset.name; // Changed from innerText.trim()
           if (correctSet.has(value)) {
             el.classList.add("correct-drop");
           } else {
@@ -181,7 +181,28 @@ function handleLiquorDrop(event) {
     droppedLiquors.push(liquor);
 
     const tag = document.createElement("p");
-    tag.innerText = liquor;
+    tag.innerText = liquor + " "; // Add space before button
+
+    // Create remove button to undo a mistaken drop
+    const removeBtn = document.createElement("button");
+    removeBtn.innerText = "x";
+    removeBtn.className = "remove-btn";
+    removeBtn.addEventListener("click", function (e) {
+      e.stopPropagation();
+      zone.removeChild(tag);
+      const index = droppedLiquors.indexOf(liquor);
+      if (index > -1) {
+        droppedLiquors.splice(index, 1);
+      }
+      document.getElementById("liquor-answer").value =
+        JSON.stringify(droppedLiquors);
+      // Disable show answer if drop zone is empty
+      if (!zone.querySelector(".dropped-liquor")) {
+        disableShowAnswer();
+      }
+    });
+    tag.appendChild(removeBtn);
+
     tag.className = "dropped-liquor drop-item";
     tag.dataset.name = liquor;
 
