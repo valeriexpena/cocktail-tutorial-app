@@ -10,8 +10,8 @@
   <form method="POST" action="/cocktail/{{ drink_id }}/quiz/{{ question_id }}" data-type="{{ question['type'] }}">
 
     {% if question["type"] in ["multiple-choice", "checkbox", "image-select"] %}
-    {% if (drink_id in ["1", "2", "3"]) and question_id == "1" or question["type"] == "image-select" %}
-    <div class="quiz-option-row">
+    {% if (drink_id in ["1", "2", "3"]) and question_id in ["1", "2"] or question["type"] == "image-select" %} 
+   <div class="quiz-option-row">
       {% for option in question["options"] %}
       <div class="image-option" onclick="toggleSelection(this)">
         <img src="/static/images/{{ option | lower | replace(' ', '_') }}.png" alt="{{ option }}">
