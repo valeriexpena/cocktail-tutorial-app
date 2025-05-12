@@ -236,7 +236,7 @@
           "target": "images/jigger.png"
         },
         "correct": 2,
-        "tolerance": 0
+        "tolerance": 1
       },
       "4": {
         "question": "Drag the correct drink above the glass to pour it in.",
@@ -449,9 +449,7 @@
       },
       "3": {
         "text_left": "Using a jigger, add 60ml Aperitivo Bitters, 30ml soda water, and 90ml prosecco to the glass.",
-        "media_left": [
-          "gifs/aperol_spritz/add_ingredients.gif"
-        ],
+        "media_left": ["gifs/aperol_spritz/add_ingredients.gif"],
         "text_right": "Drag each ingredient over the jigger to measure and pour.",
         "media_right": [
           {
