@@ -118,7 +118,7 @@
       if ((draggedId === "vodka" || draggedId === "coffee-liqueur" || draggedId === "espresso" || draggedId === "e-simple-syrup") && target === "jigger") {
         setTimeout(() => {
           let amount = "";
-          switch(draggedId) {
+          switch (draggedId) {
             case "vodka":
               amount = "40ml";
               break;
@@ -134,7 +134,7 @@
           }
           alert(`${amount} measured!`);
           measuredIngredients.add(draggedId);
-          
+
           // Check if all ingredients have been measured
           if (measuredIngredients.size === 4) {
             alert("All ingredients measured! Ready to shake!");
@@ -147,7 +147,7 @@
       if ((draggedId === "aperitivo" || draggedId === "soda-water" || draggedId === "prosecco") && target === "jigger") {
         setTimeout(() => {
           let amount = "";
-          switch(draggedId) {
+          switch (draggedId) {
             case "aperitivo":
               amount = "60ml";
               break;
@@ -160,7 +160,7 @@
           }
           alert(`${amount} measured!`);
           measuredAperolIngredients.add(draggedId);
-          
+
           // Check if all ingredients have been measured
           if (measuredAperolIngredients.size === 3) {
             alert("All ingredients measured! Ready to stir!");
@@ -256,18 +256,18 @@
     // Shaker event listeners with safe access to event_config
     document.addEventListener("DOMContentLoaded", function () {
       const shakeEnabled = {{ (step_data.event_config.shake if step_data.event_config is defined and step_data.event_config.shake is defined else false) | tojson }};
-      const shaker = document.getElementById("shaker");
-      if (shaker) {
-        if (shakeEnabled) {
-          shaker.addEventListener("mousedown", startShake);
-          shaker.addEventListener("mouseup", stopShake);
-          shaker.addEventListener("mouseleave", stopShake);
-        } else {
-          shaker.removeEventListener("mousedown", startShake);
-          shaker.removeEventListener("mouseup", stopShake);
-          shaker.removeEventListener("mouseleave", stopShake);
-        }
+    const shaker = document.getElementById("shaker");
+    if (shaker) {
+      if (shakeEnabled) {
+        shaker.addEventListener("mousedown", startShake);
+        shaker.addEventListener("mouseup", stopShake);
+        shaker.addEventListener("mouseleave", stopShake);
+      } else {
+        shaker.removeEventListener("mousedown", startShake);
+        shaker.removeEventListener("mouseup", stopShake);
+        shaker.removeEventListener("mouseleave", stopShake);
       }
+    }
     });
 
     // Step 3 liquor selection
@@ -276,16 +276,26 @@
 
     function handleLiquorClick(img) {
       const name = img.src.split('/').pop().split('.')[0];
-      if (correctLiquors.includes(name)) {
-        if (!selectedLiquors.includes(name)) {
-          selectedLiquors.push(name);
-          img.style.border = "3px solid green";
-        }
+      // Toggle selection
+      if (img.dataset.selected === "true") {
+        img.dataset.selected = "false";
+        img.style.border = "";
+        const index = selectedLiquors.indexOf(name);
+        if (index > -1) selectedLiquors.splice(index, 1);
       } else {
-        img.style.border = "3px solid red";
+        img.dataset.selected = "true";
+        selectedLiquors.push(name);
+        if (correctLiquors.includes(name)) {
+          img.style.border = "3px solid green";
+        } else {
+          img.style.border = "3px solid red";
+        }
       }
-
-      if (selectedLiquors.length === correctLiquors.length) {
+      // Ensure selection matches exactly the correct liquors
+      const uniqueSelected = Array.from(new Set(selectedLiquors));
+      const allCorrect = uniqueSelected.length === correctLiquors.length &&
+        uniqueSelected.every(item => correctLiquors.includes(item));
+      if (allCorrect) {
         alert("Nice job! You added all the correct liquors.");
         revealNext();
       }
@@ -318,7 +328,7 @@
       shakeStartTime = Date.now();
       const shaker = event.target;
       shaker.classList.add("shake");
-      
+
       shakeTimer = setInterval(() => {
         const shakeDuration = (Date.now() - shakeStartTime) / 1000;
         if (shakeDuration >= 6 && shakeDuration <= 8) {
@@ -393,14 +403,17 @@
     }
 
     /* Specific image size adjustments */
-    #shaker, #e-shaker {
+    #shaker,
+    #e-shaker {
       max-width: 120px;
       width: auto;
       height: auto;
       object-fit: contain;
     }
 
-    #highball-glass, #martini-glass, #wine-glass {
+    #highball-glass,
+    #martini-glass,
+    #wine-glass {
       max-width: 150px;
       width: auto;
       height: auto;
